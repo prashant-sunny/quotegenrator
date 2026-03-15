@@ -1,810 +1,1213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>UPVC Quote Generator – JHA Brother Enterprises</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
-<style>
-  :root {
-    --bg: #f4f0e6;
-    --card: #fffdf8;
-    --accent: #c0392b;
-    --accent2: #1a2744;
-    --border: #ddd5c0;
-    --text: #1a1a1a;
-    --muted: #7a7060;
-    --row-hover: #faf6ed;
-    --input-bg: #fefcf7;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); font-family: 'DM Sans', sans-serif; color: var(--text); min-height: 100vh; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UPVC Quote Generator – JHA Brother Enterprises</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+    <style>
+      :root {
+        --bg: #f4f0e6;
+        --card: #fffdf8;
+        --accent: #c0392b;
+        --accent2: #1a2744;
+        --border: #ddd5c0;
+        --text: #1a1a1a;
+        --muted: #7a7060;
+        --row-hover: #faf6ed;
+        --input-bg: #fefcf7;
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        min-height: 100vh;
+      }
 
-  /* HEADER */
-  header {
-    background: var(--accent2);
-    color: white;
-    padding: 18px 36px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.18);
-  }
-  .header-left { display: flex; align-items: center; gap: 14px; }
-  .header-logo { font-size: 28px; }
-  header h1 { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: 0.3px; }
-  header p { font-size: 12px; opacity: 0.55; font-weight: 300; margin-top: 1px; }
+      /* HEADER */
+      header {
+        background: var(--accent2);
+        color: white;
+        padding: 18px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+      }
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .header-logo {
+        font-size: 28px;
+      }
+      header h1 {
+        font-family: "DM Serif Display", serif;
+        font-size: 20px;
+        letter-spacing: 0.3px;
+      }
+      header p {
+        font-size: 12px;
+        opacity: 0.55;
+        font-weight: 300;
+        margin-top: 1px;
+      }
 
-  .gen-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 12px 28px;
-    border-radius: 7px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.3px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.2s;
-    box-shadow: 0 3px 10px rgba(192,57,43,0.35);
-  }
-  .gen-btn:hover { background: #a93226; transform: translateY(-1px); }
-  .gen-btn:active { transform: none; }
-  .gen-btn:disabled { background: #999; cursor: not-allowed; transform: none; box-shadow: none; }
+      .gen-btn {
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 12px 28px;
+        border-radius: 7px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        letter-spacing: 0.3px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+        box-shadow: 0 3px 10px rgba(192, 57, 43, 0.35);
+      }
+      .gen-btn:hover {
+        background: #a93226;
+        transform: translateY(-1px);
+      }
+      .gen-btn:active {
+        transform: none;
+      }
+      .gen-btn:disabled {
+        background: #999;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
 
-  /* MAIN LAYOUT */
-  .container { max-width: 1120px; margin: 0 auto; padding: 28px 18px 80px; }
+      /* MAIN LAYOUT */
+      .container {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 28px 18px 80px;
+      }
 
-  .section {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 26px 30px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.04);
-  }
-  .section-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 15px;
-    color: var(--accent2);
-    margin-bottom: 18px;
-    padding-bottom: 10px;
-    border-bottom: 2px solid var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+      .section {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 26px 30px;
+        margin-bottom: 20px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
+      }
+      .section-title {
+        font-family: "DM Serif Display", serif;
+        font-size: 15px;
+        color: var(--accent2);
+        margin-bottom: 18px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid var(--accent);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
 
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
-  .grid4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 14px; }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .grid3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 14px;
+      }
+      .grid4 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 14px;
+      }
 
-  .field label {
-    display: block;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 5px;
-  }
-  .field input, .field select {
-    width: 100%;
-    padding: 9px 13px;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13.5px;
-    background: var(--input-bg);
-    color: var(--text);
-    outline: none;
-    transition: border 0.2s, background 0.2s;
-  }
-  .field input:focus, .field select:focus {
-    border-color: var(--accent2);
-    background: white;
-  }
+      .field label {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 5px;
+      }
+      .field input,
+      .field select {
+        width: 100%;
+        padding: 9px 13px;
+        border: 1.5px solid var(--border);
+        border-radius: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13.5px;
+        background: var(--input-bg);
+        color: var(--text);
+        outline: none;
+        transition:
+          border 0.2s,
+          background 0.2s;
+      }
+      .field input:focus,
+      .field select:focus {
+        border-color: var(--accent2);
+        background: white;
+      }
 
-  /* ITEMS TABLE */
-  .items-header, .item-row {
-    display: grid;
-    grid-template-columns: 36px 80px 1fr 84px 84px 60px 84px 90px 84px 36px;
-    gap: 6px;
-    align-items: center;
-  }
-  .items-header {
-    padding: 6px 2px 10px;
-    font-size: 10.5px;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    border-bottom: 2px solid var(--border);
-    margin-bottom: 6px;
-  }
-  .items-header div { text-align: center; }
-  .items-header div:nth-child(3) { text-align: left; }
+      /* ITEMS TABLE */
+      .items-header,
+      .item-row {
+        display: grid;
+        grid-template-columns: 36px 80px 1fr 84px 84px 60px 84px 90px 84px 36px;
+        gap: 6px;
+        align-items: center;
+      }
+      .items-header {
+        padding: 6px 2px 10px;
+        font-size: 10.5px;
+        font-weight: 700;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        border-bottom: 2px solid var(--border);
+        margin-bottom: 6px;
+      }
+      .items-header div {
+        text-align: center;
+      }
+      .items-header div:nth-child(3) {
+        text-align: left;
+      }
 
-  .item-row {
-    padding: 5px 2px;
-    border-radius: 6px;
-    transition: background 0.15s;
-  }
-  .item-row:hover { background: var(--row-hover); }
-  .item-row input, .item-row select {
-    padding: 7px 8px;
-    font-size: 12.5px;
-    border: 1.5px solid var(--border);
-    border-radius: 5px;
-    background: var(--input-bg);
-    font-family: 'DM Sans', sans-serif;
-    color: var(--text);
-    outline: none;
-    width: 100%;
-    text-align: center;
-    transition: border 0.15s;
-  }
-  .item-row input:focus, .item-row select:focus { border-color: var(--accent2); background: white; }
-  .item-row .type-input { text-align: left; }
-  .row-num { text-align: center; font-size: 12px; color: var(--muted); font-weight: 600; }
-  .row-area { text-align: center; font-size: 12px; color: var(--muted); }
-  .row-amount { text-align: right; font-size: 13px; font-weight: 700; color: var(--accent2); padding-right: 2px; }
-  .remove-btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #ccc;
-    font-size: 17px;
-    line-height: 1;
-    padding: 4px;
-    border-radius: 4px;
-    transition: color 0.15s;
-    text-align: center;
-    width: 100%;
-  }
-  .remove-btn:hover { color: var(--accent); }
+      .item-row {
+        padding: 5px 2px;
+        border-radius: 6px;
+        transition: background 0.15s;
+      }
+      .item-row:hover {
+        background: var(--row-hover);
+      }
+      .item-row input,
+      .item-row select {
+        padding: 7px 8px;
+        font-size: 12.5px;
+        border: 1.5px solid var(--border);
+        border-radius: 5px;
+        background: var(--input-bg);
+        font-family: "DM Sans", sans-serif;
+        color: var(--text);
+        outline: none;
+        width: 100%;
+        text-align: center;
+        transition: border 0.15s;
+      }
+      .item-row input:focus,
+      .item-row select:focus {
+        border-color: var(--accent2);
+        background: white;
+      }
+      .item-row .type-input {
+        text-align: left;
+      }
+      .row-num {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 600;
+      }
+      .row-area {
+        text-align: center;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .row-amount {
+        text-align: right;
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--accent2);
+        padding-right: 2px;
+      }
+      .remove-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        font-size: 17px;
+        line-height: 1;
+        padding: 4px;
+        border-radius: 4px;
+        transition: color 0.15s;
+        text-align: center;
+        width: 100%;
+      }
+      .remove-btn:hover {
+        color: var(--accent);
+      }
 
-  .add-row-btn {
-    margin-top: 10px;
-    background: none;
-    border: 1.5px dashed var(--border);
-    color: var(--muted);
-    padding: 9px 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    transition: all 0.15s;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-  .add-row-btn:hover { border-color: var(--accent); color: var(--accent); background: #fff5f4; }
+      .add-row-btn {
+        margin-top: 10px;
+        background: none;
+        border: 1.5px dashed var(--border);
+        color: var(--muted);
+        padding: 9px 18px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-size: 13px;
+        font-weight: 500;
+        transition: all 0.15s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+      .add-row-btn:hover {
+        border-color: var(--accent);
+        color: var(--accent);
+        background: #fff5f4;
+      }
 
-  /* TOTALS */
-  .totals-row-outer {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 20px;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-  .charges-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; flex: 1; min-width: 260px; }
-  .totals-box {
-    min-width: 280px;
-    background: var(--accent2);
-    border-radius: 9px;
-    padding: 18px 22px;
-    color: white;
-    flex-shrink: 0;
-  }
-  .tot-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px 0;
-    font-size: 13px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .tot-line:last-child { border-bottom: none; padding-top: 10px; }
-  .tot-line .lbl { font-size: 10.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.4px; opacity: 0.65; }
-  .tot-line .val { font-weight: 700; }
-  .tot-line.grand .lbl, .tot-line.grand .val { font-size: 16px; opacity: 1; }
-  .tot-line.grand .val { color: #ffc107; }
+      /* TOTALS */
+      .totals-row-outer {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 20px;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .charges-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        flex: 1;
+        min-width: 260px;
+      }
+      .totals-box {
+        min-width: 280px;
+        background: var(--accent2);
+        border-radius: 9px;
+        padding: 18px 22px;
+        color: white;
+        flex-shrink: 0;
+      }
+      .tot-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 5px 0;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .tot-line:last-child {
+        border-bottom: none;
+        padding-top: 10px;
+      }
+      .tot-line .lbl {
+        font-size: 10.5px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        opacity: 0.65;
+      }
+      .tot-line .val {
+        font-weight: 700;
+      }
+      .tot-line.grand .lbl,
+      .tot-line.grand .val {
+        font-size: 16px;
+        opacity: 1;
+      }
+      .tot-line.grand .val {
+        color: #ffc107;
+      }
 
-  /* TOAST */
-  .toast {
-    position: fixed; bottom: 22px; right: 22px;
-    background: #27ae60; color: white; padding: 13px 20px;
-    border-radius: 8px; font-size: 13.5px; font-weight: 500;
-    transform: translateY(70px); opacity: 0;
-    transition: all 0.3s; pointer-events: none; z-index: 999;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .toast.show { transform: translateY(0); opacity: 1; }
+      /* TOAST */
+      .toast {
+        position: fixed;
+        bottom: 22px;
+        right: 22px;
+        background: #27ae60;
+        color: white;
+        padding: 13px 20px;
+        border-radius: 8px;
+        font-size: 13.5px;
+        font-weight: 500;
+        transform: translateY(70px);
+        opacity: 0;
+        transition: all 0.3s;
+        pointer-events: none;
+        z-index: 999;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .toast.show {
+        transform: translateY(0);
+        opacity: 1;
+      }
 
-  /* BADGE */
-  .badge {
-    background: var(--accent);
-    color: white;
-    font-size: 10px;
-    padding: 2px 8px;
-    border-radius: 20px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-    margin-left: 4px;
-  }
+      /* BADGE */
+      .badge {
+        background: var(--accent);
+        color: white;
+        font-size: 10px;
+        padding: 2px 8px;
+        border-radius: 20px;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        margin-left: 4px;
+      }
 
-  @media(max-width:800px) {
-    .grid2,.grid3,.grid4 { grid-template-columns: 1fr; }
-    .items-header { display: none; }
-    .item-row { grid-template-columns: 1fr 1fr; gap: 6px; padding: 10px; background: var(--input-bg); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 8px; }
-    .gen-btn span { display: none; }
-  }
-</style>
-</head>
-<body>
-
-<header>
-  <div class="header-left">
-    <div class="header-logo">🪟</div>
-    <div>
-      <h1>UPVC Quote Generator</h1>
-      <p>Windows &amp; Doors Estimation System</p>
-    </div>
-  </div>
-  <button class="gen-btn" id="genBtn" onclick="generatePDF()">
-    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-    <span>Download PDF Quote</span>
-  </button>
-</header>
-
-<div class="container">
-
-  <!-- COMPANY -->
-  <div class="section">
-    <div class="section-title">🏢 Company Details</div>
-    <div class="grid3">
-      <div class="field"><label>Company Name</label><input id="companyName" value="JHA BROTHER ENTERPRISES"/></div>
-      <div class="field"><label>Sub-title / Tagline</label><input id="companyTag" value="HOME DECOR"/></div>
-      <div class="field"><label>Phone</label><input id="companyPhone" value="7065856717"/></div>
-    </div>
-    <div class="grid4" style="margin-top:12px">
-      <div class="field"><label>Profile Brand</label><input id="profileBrand" value="ENCRAFT WHITE COLOR"/></div>
-      <div class="field"><label>Quote Number</label><input id="quoteNo" value="JBE20-21.0178"/></div>
-      <div class="field"><label>Quote Date</label><input id="quoteDate" type="date"/></div>
-      <div class="field"><label>Bank A/C (optional)</label><input id="bankAcc" value="9614111560 | KOTAK MAHINDRA BANK"/></div>
-    </div>
-  </div>
-
-  <!-- CUSTOMER -->
-  <div class="section">
-    <div class="section-title">👤 Customer Details</div>
-    <div class="grid3">
-      <div class="field"><label>Customer Name</label><input id="customerName" value="MR. SITARAM BANSAL"/></div>
-      <div class="field"><label>Location / Project</label><input id="customerLocation" value="SHALIMAR BAGH"/></div>
-      <div class="field"><label>Glass Specification</label><input id="glassSpec" value="Saint Gobain 6mm clear toughened glass"/></div>
-    </div>
-  </div>
-
-  <!-- LINE ITEMS -->
-  <div class="section">
-    <div class="section-title">
-      🪟 Windows &amp; Doors
-      <span class="badge" id="itemCount">9 items</span>
-    </div>
-
-    <div class="items-header">
-      <div>#</div>
-      <div>Win/Door No.</div>
-      <div style="text-align:left">Type / Description</div>
-      <div>Width (mm)</div>
-      <div>Height (mm)</div>
-      <div>Qty</div>
-      <div>Area (sqft)</div>
-      <div>Rate/sqft (₹)</div>
-      <div>Amount (₹)</div>
-      <div></div>
-    </div>
-
-    <div id="itemsContainer"></div>
-    <button class="add-row-btn" onclick="addRow()">＋ Add Item</button>
-
-    <div class="totals-row-outer">
-      <div class="charges-grid">
-        <div class="field">
-          <label>Transport &amp; Shifting (₹)</label>
-          <input type="number" id="transport" value="6500" oninput="recalc()"/>
+      @media (max-width: 800px) {
+        .grid2,
+        .grid3,
+        .grid4 {
+          grid-template-columns: 1fr;
+        }
+        .items-header {
+          display: none;
+        }
+        .item-row {
+          grid-template-columns: 1fr 1fr;
+          gap: 6px;
+          padding: 10px;
+          background: var(--input-bg);
+          border: 1px solid var(--border);
+          border-radius: 8px;
+          margin-bottom: 8px;
+        }
+        .gen-btn span {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-left">
+        <div class="header-logo">🪟</div>
+        <div>
+          <h1>UPVC Quote Generator</h1>
+          <p>Windows &amp; Doors Estimation System</p>
         </div>
-        <div class="field">
-          <label>Installation (₹)</label>
-          <input type="number" id="installation" value="27750" oninput="recalc()"/>
+      </div>
+      <button class="gen-btn" id="genBtn" onclick="generatePDF()">
+        <svg
+          width="16"
+          height="16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          viewBox="0 0 24 24"
+        >
+          <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+          <polyline points="14,2 14,8 20,8" />
+          <line x1="12" y1="18" x2="12" y2="12" />
+          <line x1="9" y1="15" x2="15" y2="15" />
+        </svg>
+        <span>Download PDF Quote</span>
+      </button>
+    </header>
+
+    <div class="container">
+      <!-- COMPANY -->
+      <div class="section">
+        <div class="section-title">🏢 Company Details</div>
+        <div class="grid3">
+          <div class="field">
+            <label>Company Name</label
+            ><input id="companyName" value="JHA BROTHER ENTERPRISES" />
+          </div>
+          <div class="field">
+            <label>Sub-title / Tagline</label
+            ><input id="companyTag" value="HOME DECOR" />
+          </div>
+          <div class="field">
+            <label>Phone</label><input id="companyPhone" value="7065856717" />
+          </div>
         </div>
-        <div class="field">
-          <label>GST %</label>
-          <select id="gstPct" onchange="recalc()">
-            <option value="0">GST @ 0% (not included)</option>
-            <option value="18" selected>GST @ 18% (extra / shown separately)</option>
-            <option value="28">GST @ 28% (extra / shown separately)</option>
-          </select>
-        </div>
-        <div class="field">
-          <label>Validity (days)</label>
-          <input type="number" id="validity" value="30"/>
+        <div class="grid4" style="margin-top: 12px">
+          <div class="field">
+            <label>Profile Brand</label
+            ><input id="profileBrand" value="ENCRAFT WHITE COLOR" />
+          </div>
+          <div class="field">
+            <label>Quote Number</label
+            ><input id="quoteNo" value="JBE20-21.0178" />
+          </div>
+          <div class="field">
+            <label>Quote Date</label><input id="quoteDate" type="date" />
+          </div>
+          <div class="field">
+            <label>Bank A/C (optional)</label
+            ><input id="bankAcc" value="9614111560 | KOTAK MAHINDRA BANK" />
+          </div>
         </div>
       </div>
 
-      <div class="totals-box">
-        <div class="tot-line"><span class="lbl">Total Items</span><span class="val" id="t_items">0</span></div>
-        <div class="tot-line"><span class="lbl">Total Area (sqft)</span><span class="val" id="t_area">0</span></div>
-        <div class="tot-line"><span class="lbl">Items Subtotal</span><span class="val" id="t_sub">₹0</span></div>
-        <div class="tot-line"><span class="lbl">Transport + Installation</span><span class="val" id="t_extra">₹0</span></div>
-        <div class="tot-line grand"><span class="lbl">Grand Total</span><span class="val" id="t_grand">₹0</span></div>
-        <div class="tot-line" style="margin-top:4px"><span class="lbl" style="opacity:0.4;font-size:9px">+ GST extra as applicable</span><span class="val" id="t_rate_sqf" style="font-size:10px;opacity:0.6"></span></div>
+      <!-- CUSTOMER -->
+      <div class="section">
+        <div class="section-title">👤 Customer Details</div>
+        <div class="grid3">
+          <div class="field">
+            <label>Customer Name</label
+            ><input id="customerName" value="MR. SITARAM BANSAL" />
+          </div>
+          <div class="field">
+            <label>Location / Project</label
+            ><input id="customerLocation" value="SHALIMAR BAGH" />
+          </div>
+          <div class="field">
+            <label>Glass Specification</label
+            ><input
+              id="glassSpec"
+              value="Saint Gobain 6mm clear toughened glass"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- LINE ITEMS -->
+      <div class="section">
+        <div class="section-title">
+          🪟 Windows &amp; Doors
+          <span class="badge" id="itemCount">9 items</span>
+        </div>
+
+        <div class="items-header">
+          <div>#</div>
+          <div>Win/Door No.</div>
+          <div style="text-align: left">Type / Description</div>
+          <div>Width (mm)</div>
+          <div>Height (mm)</div>
+          <div>Qty</div>
+          <div>Area (sqft)</div>
+          <div>Rate/sqft (₹)</div>
+          <div>Amount (₹)</div>
+          <div></div>
+        </div>
+
+        <div id="itemsContainer"></div>
+        <button class="add-row-btn" onclick="addRow()">＋ Add Item</button>
+
+        <div class="totals-row-outer">
+          <div class="charges-grid">
+            <div class="field">
+              <label>Transport &amp; Shifting (₹)</label>
+              <input
+                type="number"
+                id="transport"
+                value="6500"
+                oninput="recalc()"
+              />
+            </div>
+            <div class="field">
+              <label>Installation (₹)</label>
+              <input
+                type="number"
+                id="installation"
+                value="27750"
+                oninput="recalc()"
+              />
+            </div>
+            <div class="field">
+              <label>GST %</label>
+              <select id="gstPct" onchange="recalc()">
+                <option value="0">GST @ 0% (not included)</option>
+                <option value="18" selected>
+                  GST @ 18% (extra / shown separately)
+                </option>
+                <option value="28">GST @ 28% (extra / shown separately)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Validity (days)</label>
+              <input type="number" id="validity" value="30" />
+            </div>
+          </div>
+
+          <div class="totals-box">
+            <div class="tot-line">
+              <span class="lbl">Total Items</span
+              ><span class="val" id="t_items">0</span>
+            </div>
+            <div class="tot-line">
+              <span class="lbl">Total Area (sqft)</span
+              ><span class="val" id="t_area">0</span>
+            </div>
+            <div class="tot-line">
+              <span class="lbl">Items Subtotal</span
+              ><span class="val" id="t_sub">₹0</span>
+            </div>
+            <div class="tot-line">
+              <span class="lbl">Transport + Installation</span
+              ><span class="val" id="t_extra">₹0</span>
+            </div>
+            <div class="tot-line grand">
+              <span class="lbl">Grand Total</span
+              ><span class="val" id="t_grand">₹0</span>
+            </div>
+            <div class="tot-line" style="margin-top: 4px">
+              <span class="lbl" style="opacity: 0.4; font-size: 9px"
+                >+ GST extra as applicable</span
+              ><span
+                class="val"
+                id="t_rate_sqf"
+                style="font-size: 10px; opacity: 0.6"
+              ></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TERMS -->
+      <div class="section">
+        <div class="section-title">📋 Terms &amp; Conditions</div>
+        <div class="grid3">
+          <div class="field">
+            <label>Profile Warranty</label
+            ><input
+              id="wProfile"
+              value="10 years against discoloration and bulging"
+            />
+          </div>
+          <div class="field">
+            <label>Hardware Warranty</label
+            ><input id="wHardware" value="2 Year Warranty on hardware" />
+          </div>
+          <div class="field">
+            <label>Payment Terms</label
+            ><input
+              id="payTerms"
+              value="60% advance, 30% before dispatch, 10% after installation"
+            />
+          </div>
+        </div>
+        <div class="grid2" style="margin-top: 12px">
+          <div class="field">
+            <label>Lead Time</label
+            ><input id="leadTime" value="25-30 Days after advance payment" />
+          </div>
+          <div class="field">
+            <label>Note for Customer</label
+            ><input
+              id="custNote"
+              value="Customer to provide power, security, scaffolding for installation"
+            />
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- TERMS -->
-  <div class="section">
-    <div class="section-title">📋 Terms &amp; Conditions</div>
-    <div class="grid3">
-      <div class="field"><label>Profile Warranty</label><input id="wProfile" value="10 years against discoloration and bulging"/></div>
-      <div class="field"><label>Hardware Warranty</label><input id="wHardware" value="2 Year Warranty on hardware"/></div>
-      <div class="field"><label>Payment Terms</label><input id="payTerms" value="60% advance, 30% before dispatch, 10% after installation"/></div>
-    </div>
-    <div class="grid2" style="margin-top:12px">
-      <div class="field"><label>Lead Time</label><input id="leadTime" value="25-30 Days after advance payment"/></div>
-      <div class="field"><label>Note for Customer</label><input id="custNote" value="Customer to provide power, security, scaffolding for installation"/></div>
-    </div>
-  </div>
+    <div class="toast" id="toast">✓ PDF downloaded!</div>
 
-</div>
+    <script>
+      // ─── DATA ────────────────────────────────────────────────────────────────────
+      const TYPES = [
+        "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
+        "CASEMENT DOOR, 6MM TUFF GLASS, CYLINDER LOCK",
+        "FIX WINDOW, 8MM TUFF GLASS",
+        "CASEMENT WINDOW, 6MM TUFF GLASS",
+        "2 TRACK SLIDING, SS MESH, 6MM GLASS",
+        "OPENABLE WINDOW, 6MM TUFF GLASS",
+        "TILT & TURN WINDOW, 6MM TUFF GLASS",
+        "SLIDING DOOR, 8MM TUFF GLASS",
+        "FIX WINDOW, 6MM TUFF GLASS",
+        "COMBINATION WINDOW (FIX + CASEMENT)",
+      ];
 
-<div class="toast" id="toast">✓ PDF downloaded!</div>
+      const DEFAULT = [
+        {
+          no: "W1",
+          type: "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
+          w: 1870,
+          h: 2420,
+          qty: 4,
+          rate: 610,
+        },
+        {
+          no: "W2",
+          type: "CASEMENT DOOR, 6MM TUFF GLASS, CYLINDER LOCK",
+          w: 1080,
+          h: 2450,
+          qty: 4,
+          rate: 710,
+        },
+        {
+          no: "W3",
+          type: "FIX WINDOW, 8MM TUFF GLASS",
+          w: 2450,
+          h: 2450,
+          qty: 4,
+          rate: 390,
+        },
+        {
+          no: "W4",
+          type: "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
+          w: 1790,
+          h: 1500,
+          qty: 4,
+          rate: 630,
+        },
+        {
+          no: "W5",
+          type: "FIX WINDOW, 8MM TUFF GLASS",
+          w: 900,
+          h: 760,
+          qty: 4,
+          rate: 390,
+        },
+        {
+          no: "W6",
+          type: "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
+          w: 1770,
+          h: 1450,
+          qty: 4,
+          rate: 630,
+        },
+        {
+          no: "W7",
+          type: "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
+          w: 740,
+          h: 1230,
+          qty: 4,
+          rate: 670,
+        },
+        {
+          no: "W8",
+          type: "FIX WINDOW, 8MM TUFF GLASS",
+          w: 790,
+          h: 670,
+          qty: 4,
+          rate: 390,
+        },
+        {
+          no: "W9",
+          type: "CASEMENT WINDOW, 6MM TUFF GLASS",
+          w: 600,
+          h: 1530,
+          qty: 4,
+          rate: 710,
+        },
+      ];
 
-<script>
-// ─── DATA ────────────────────────────────────────────────────────────────────
-const TYPES = [
-  "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
-  "CASEMENT DOOR, 6MM TUFF GLASS, CYLINDER LOCK",
-  "FIX WINDOW, 8MM TUFF GLASS",
-  "CASEMENT WINDOW, 6MM TUFF GLASS",
-  "2 TRACK SLIDING, SS MESH, 6MM GLASS",
-  "OPENABLE WINDOW, 6MM TUFF GLASS",
-  "TILT & TURN WINDOW, 6MM TUFF GLASS",
-  "SLIDING DOOR, 8MM TUFF GLASS",
-  "FIX WINDOW, 6MM TUFF GLASS",
-  "COMBINATION WINDOW (FIX + CASEMENT)",
-];
+      let rowId = 0;
+      const SQFT_PER_MM2 = 1 / (304.8 * 304.8);
 
-const DEFAULT = [
-  {no:"W1",type:"3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",w:1870,h:2420,qty:4,rate:610},
-  {no:"W2",type:"CASEMENT DOOR, 6MM TUFF GLASS, CYLINDER LOCK",w:1080,h:2450,qty:4,rate:710},
-  {no:"W3",type:"FIX WINDOW, 8MM TUFF GLASS",w:2450,h:2450,qty:4,rate:390},
-  {no:"W4",type:"3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",w:1790,h:1500,qty:4,rate:630},
-  {no:"W5",type:"FIX WINDOW, 8MM TUFF GLASS",w:900,h:760,qty:4,rate:390},
-  {no:"W6",type:"3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",w:1770,h:1450,qty:4,rate:630},
-  {no:"W7",type:"3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",w:740,h:1230,qty:4,rate:670},
-  {no:"W8",type:"FIX WINDOW, 8MM TUFF GLASS",w:790,h:670,qty:4,rate:390},
-  {no:"W9",type:"CASEMENT WINDOW, 6MM TUFF GLASS",w:600,h:1530,qty:4,rate:710},
-];
+      function mmToSqft(w, h, qty) {
+        return w * h * SQFT_PER_MM2 * qty;
+      }
 
-let rowId = 0;
-const SQFT_PER_MM2 = 1 / (304.8 * 304.8);
+      function inr(n) {
+        return "₹" + Math.round(n).toLocaleString("en-IN");
+      }
 
-function mmToSqft(w, h, qty) {
-  return w * h * SQFT_PER_MM2 * qty;
-}
+      // ─── ROW CREATION ────────────────────────────────────────────────────────────
+      function createRow(item = {}) {
+        const id = rowId++;
+        const div = document.createElement("div");
+        div.className = "item-row";
+        div.id = "row_" + id;
 
-function inr(n) {
-  return '₹' + Math.round(n).toLocaleString('en-IN');
-}
+        const opts =
+          TYPES.map(
+            (t) =>
+              `<option value="${t}"${t === item.type ? " selected" : ""}>${t}</option>`,
+          ).join("") +
+          `<option value="_custom"${!TYPES.includes(item.type) && item.type ? " selected" : ""}>-- Custom --</option>`;
 
-// ─── ROW CREATION ────────────────────────────────────────────────────────────
-function createRow(item = {}) {
-  const id = rowId++;
-  const div = document.createElement('div');
-  div.className = 'item-row';
-  div.id = 'row_' + id;
-
-  const opts = TYPES.map(t =>
-    `<option value="${t}"${t === item.type ? ' selected' : ''}>${t}</option>`
-  ).join('') + `<option value="_custom"${!TYPES.includes(item.type) && item.type ? ' selected' : ''}>-- Custom --</option>`;
-
-  div.innerHTML = `
+        div.innerHTML = `
     <div class="row-num" id="rn_${id}">–</div>
-    <input type="text" placeholder="W1" value="${item.no || ''}" id="no_${id}" oninput="recalc()"/>
+    <input type="text" placeholder="W1" value="${item.no || ""}" id="no_${id}" oninput="recalc()"/>
     <select id="type_${id}" onchange="onTypeChange(${id})" class="type-input">${opts}</select>
-    <input type="number" placeholder="mm" value="${item.w || ''}" id="w_${id}" oninput="recalc()" min="0"/>
-    <input type="number" placeholder="mm" value="${item.h || ''}" id="h_${id}" oninput="recalc()" min="0"/>
+    <input type="number" placeholder="mm" value="${item.w || ""}" id="w_${id}" oninput="recalc()" min="0"/>
+    <input type="number" placeholder="mm" value="${item.h || ""}" id="h_${id}" oninput="recalc()" min="0"/>
     <input type="number" placeholder="1" value="${item.qty || 1}" id="qty_${id}" oninput="recalc()" min="1"/>
     <div class="row-area" id="area_${id}">0.00</div>
-    <input type="number" placeholder="₹/sqft" value="${item.rate || ''}" id="rate_${id}" oninput="recalc()" min="0"/>
+    <input type="number" placeholder="₹/sqft" value="${item.rate || ""}" id="rate_${id}" oninput="recalc()" min="0"/>
     <div class="row-amount" id="amt_${id}">₹0</div>
     <button class="remove-btn" onclick="removeRow('row_${id}')" title="Remove">×</button>
   `;
-  return div;
-}
+        return div;
+      }
 
-function onTypeChange(id) {
-  const sel = document.getElementById('type_' + id);
-  if (sel.value === '_custom') {
-    const val = prompt('Enter custom description:');
-    if (val) {
-      const opt = document.createElement('option');
-      opt.value = val; opt.text = val; opt.selected = true;
-      sel.add(opt);
-    } else {
-      sel.value = TYPES[0];
-    }
-  }
-  recalc();
-}
-
-function removeRow(id) {
-  document.getElementById(id)?.remove();
-  renumber(); recalc();
-}
-
-function addRow() {
-  document.getElementById('itemsContainer').appendChild(createRow());
-  renumber(); recalc();
-}
-
-function renumber() {
-  document.querySelectorAll('.item-row').forEach((r, i) => {
-    const el = r.querySelector('[id^="rn_"]');
-    if (el) el.textContent = i + 1;
-  });
-  document.getElementById('itemCount').textContent =
-    document.querySelectorAll('.item-row').length + ' items';
-}
-
-// ─── RECALC ──────────────────────────────────────────────────────────────────
-function recalc() {
-  let subtotal = 0, totalQty = 0, totalArea = 0;
-
-  document.querySelectorAll('.item-row').forEach(row => {
-    const id = row.id.replace('row_', '');
-    const w = parseFloat(document.getElementById('w_' + id)?.value) || 0;
-    const h = parseFloat(document.getElementById('h_' + id)?.value) || 0;
-    const qty = parseFloat(document.getElementById('qty_' + id)?.value) || 0;
-    const rate = parseFloat(document.getElementById('rate_' + id)?.value) || 0;
-    const area = mmToSqft(w, h, qty);
-    const amt = Math.round(area * rate);
-    const areaEl = document.getElementById('area_' + id);
-    const amtEl = document.getElementById('amt_' + id);
-    if (areaEl) areaEl.textContent = area.toFixed(2);
-    if (amtEl) amtEl.textContent = amt ? inr(amt) : '₹0';
-    subtotal += amt;
-    totalQty += qty;
-    totalArea += area;
-  });
-
-  const transport = parseFloat(document.getElementById('transport').value) || 0;
-  const inst = parseFloat(document.getElementById('installation').value) || 0;
-  const grand = subtotal + transport + inst;
-  const rateSqf = totalArea ? grand / totalArea : 0;
-
-  document.getElementById('t_items').textContent = totalQty;
-  document.getElementById('t_area').textContent = totalArea.toFixed(2);
-  document.getElementById('t_sub').textContent = inr(subtotal);
-  document.getElementById('t_extra').textContent = inr(transport + inst);
-  document.getElementById('t_grand').textContent = inr(grand);
-  document.getElementById('t_rate_sqf').textContent = 'Rate/sqf: ₹' + rateSqf.toFixed(2);
-}
-
-// ─── COLLECT DATA ────────────────────────────────────────────────────────────
-function collectData() {
-  const items = [];
-  document.querySelectorAll('.item-row').forEach(row => {
-    const id = row.id.replace('row_', '');
-    const w = parseFloat(document.getElementById('w_' + id)?.value) || 0;
-    const h = parseFloat(document.getElementById('h_' + id)?.value) || 0;
-    const qty = parseFloat(document.getElementById('qty_' + id)?.value) || 0;
-    const rate = parseFloat(document.getElementById('rate_' + id)?.value) || 0;
-    const area = mmToSqft(w, h, qty);
-    const amount = Math.round(area * rate);
-    items.push({
-      no: document.getElementById('no_' + id)?.value || '',
-      type: document.getElementById('type_' + id)?.value || '',
-      w, h, qty, rate,
-      area: parseFloat(area.toFixed(2)),
-      amount
-    });
-  });
-
-  const transport = parseFloat(document.getElementById('transport').value) || 0;
-  const installation = parseFloat(document.getElementById('installation').value) || 0;
-  const subtotal = items.reduce((a, b) => a + b.amount, 0);
-  const grand = subtotal + transport + installation;
-  const totalArea = items.reduce((a, b) => a + b.area, 0);
-
-  return {
-    companyName: document.getElementById('companyName').value,
-    companyTag: document.getElementById('companyTag').value,
-    companyPhone: document.getElementById('companyPhone').value,
-    profileBrand: document.getElementById('profileBrand').value,
-    quoteNo: document.getElementById('quoteNo').value,
-    quoteDate: document.getElementById('quoteDate').value,
-    bankAcc: document.getElementById('bankAcc').value,
-    customerName: document.getElementById('customerName').value,
-    customerLocation: document.getElementById('customerLocation').value,
-    glassSpec: document.getElementById('glassSpec').value,
-    transport, installation, subtotal, grand, totalArea,
-    gstPct: document.getElementById('gstPct').value,
-    validity: document.getElementById('validity').value,
-    wProfile: document.getElementById('wProfile').value,
-    wHardware: document.getElementById('wHardware').value,
-    payTerms: document.getElementById('payTerms').value,
-    leadTime: document.getElementById('leadTime').value,
-    custNote: document.getElementById('custNote').value,
-    items
-  };
-}
-
-// ─── PDF GENERATION ──────────────────────────────────────────────────────────
-async function generatePDF() {
-  const btn = document.getElementById('genBtn');
-  btn.disabled = true;
-  btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> <span>Generating…</span>`;
-
-  await new Promise(r => setTimeout(r, 60));
-
-  try {
-    const d = collectData();
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-
-    const PW = 210, PH = 297;
-    const ML = 12, MR = 12, MT = 10;
-    const CW = PW - ML - MR;
-
-    // ── COMPANY HEADER ──
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(192, 57, 43);
-    doc.text(d.companyName, PW / 2, MT + 6, { align: 'center' });
-
-    doc.setFontSize(11);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(26, 39, 68);
-    doc.text(d.companyTag, PW / 2, MT + 12, { align: 'center' });
-
-    // quote meta left / right
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(60, 60, 60);
-    doc.text(`QUOTE NO.  ${d.quoteNo}`, ML, MT + 4);
-    doc.text(`COLOR  ${d.profileBrand}`, ML, MT + 8);
-    doc.text(`PH: ${d.companyPhone}`, PW - MR, MT + 4, { align: 'right' });
-    doc.text(`DATE: ${d.quoteDate}`, PW - MR, MT + 8, { align: 'right' });
-
-    // red line
-    let y = MT + 15;
-    doc.setDrawColor(192, 57, 43);
-    doc.setLineWidth(0.6);
-    doc.line(ML, y, PW - MR, y);
-    y += 5;
-
-    // TITLE
-    doc.setFontSize(10.5);
-    doc.setFont('helvetica', 'bold');
-    doc.setTextColor(26, 39, 68);
-    doc.text('ESTIMATE FOR UPVC WINDOWS & DOORS', PW / 2, y, { align: 'center' });
-    y += 2;
-    // underline
-    const titleW = doc.getTextWidth('ESTIMATE FOR UPVC WINDOWS & DOORS');
-    doc.setLineWidth(0.4);
-    doc.line(PW / 2 - titleW / 2, y, PW / 2 + titleW / 2, y);
-    y += 5;
-
-    // Customer banner
-    doc.setFillColor(238, 242, 248);
-    doc.rect(ML, y, CW, 8, 'F');
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(26, 39, 68);
-    doc.text(d.customerName.toUpperCase(), ML + 3, y + 5.5);
-    doc.setFont('helvetica', 'normal');
-    doc.setTextColor(80, 80, 80);
-    doc.text(d.customerLocation, PW - MR - 3, y + 5.5, { align: 'right' });
-    y += 11;
-
-    // ── ITEMS TABLE ──
-    const cols = [
-      { header: 'S.No', dataKey: 'sno' },
-      { header: 'Win/\nDoor No.', dataKey: 'no' },
-      { header: 'Type / Description', dataKey: 'type' },
-      { header: 'Width\n(MM)', dataKey: 'w' },
-      { header: 'Height\n(MM)', dataKey: 'h' },
-      { header: 'Qty', dataKey: 'qty' },
-      { header: 'Area\n(Sqft)', dataKey: 'area' },
-      { header: 'Rate/\nSqft', dataKey: 'rate' },
-      { header: 'Amount\n(Rs.)', dataKey: 'amount' },
-    ];
-
-    const rows = d.items.map((it, i) => ({
-      sno: i + 1,
-      no: it.no,
-      type: it.type,
-      w: it.w,
-      h: it.h,
-      qty: it.qty,
-      area: it.area.toFixed(2),
-      rate: it.rate,
-      amount: it.amount.toLocaleString('en-IN'),
-    }));
-
-    const totalQty = d.items.reduce((a, b) => a + b.qty, 0);
-    const totalArea = d.totalArea.toFixed(2);
-    const grandFmt = d.grand.toLocaleString('en-IN');
-
-    // Footer rows
-    rows.push(
-      { sno: '', no: '', type: 'TOTAL', w: '', h: totalQty, qty: '', area: totalArea, rate: '', amount: d.subtotal.toLocaleString('en-IN') },
-      { sno: '', no: '', type: '', w: '', h: '', qty: '', area: 'TRANSPORT & SHIFTING', rate: '', amount: d.transport.toLocaleString('en-IN') },
-      { sno: '', no: '', type: '', w: '', h: '', qty: '', area: 'INSTALLATION', rate: '', amount: d.installation.toLocaleString('en-IN') },
-      { sno: `Rate/Sqf: ${d.totalArea ? (d.grand / d.totalArea).toFixed(2) : '0'}`, no: '', type: '', w: '', h: '', qty: '', area: 'GRAND TOTAL', rate: '', amount: grandFmt },
-    );
-
-    const nItems = d.items.length;
-    const nRows = rows.length;
-
-    doc.autoTable({
-      startY: y,
-      columns: cols,
-      body: rows,
-      margin: { left: ML, right: MR },
-      tableWidth: CW,
-      columnStyles: {
-        sno:    { cellWidth: 9,  halign: 'center' },
-        no:     { cellWidth: 16, halign: 'center' },
-        type:   { cellWidth: 62, halign: 'left'   },
-        w:      { cellWidth: 16, halign: 'center' },
-        h:      { cellWidth: 16, halign: 'center' },
-        qty:    { cellWidth: 11, halign: 'center' },
-        area:   { cellWidth: 20, halign: 'center' },
-        rate:   { cellWidth: 16, halign: 'center' },
-        amount: { cellWidth: 20, halign: 'right'  },
-      },
-      headStyles: {
-        fillColor: [26, 39, 68],
-        textColor: 255,
-        fontStyle: 'bold',
-        fontSize: 7.5,
-        halign: 'center',
-        cellPadding: 2.5,
-      },
-      bodyStyles: { fontSize: 8, cellPadding: 2, valign: 'middle' },
-      alternateRowStyles: { fillColor: [247, 244, 238] },
-      didParseCell(data) {
-        const r = data.row.index;
-        // total row
-        if (r === nItems) {
-          data.cell.styles.fontStyle = 'bold';
-          data.cell.styles.fillColor = [230, 236, 248];
-          data.cell.styles.textColor = [26, 39, 68];
+      function onTypeChange(id) {
+        const sel = document.getElementById("type_" + id);
+        if (sel.value === "_custom") {
+          const val = prompt("Enter custom description:");
+          if (val) {
+            const opt = document.createElement("option");
+            opt.value = val;
+            opt.text = val;
+            opt.selected = true;
+            sel.add(opt);
+          } else {
+            sel.value = TYPES[0];
+          }
         }
-        // transport/installation rows
-        if (r === nItems + 1 || r === nItems + 2) {
-          data.cell.styles.fontSize = 7.5;
-          if (data.column.dataKey === 'area') data.cell.styles.halign = 'right';
+        recalc();
+      }
+
+      function removeRow(id) {
+        document.getElementById(id)?.remove();
+        renumber();
+        recalc();
+      }
+
+      function addRow() {
+        document.getElementById("itemsContainer").appendChild(createRow());
+        renumber();
+        recalc();
+      }
+
+      function renumber() {
+        document.querySelectorAll(".item-row").forEach((r, i) => {
+          const el = r.querySelector('[id^="rn_"]');
+          if (el) el.textContent = i + 1;
+        });
+        document.getElementById("itemCount").textContent =
+          document.querySelectorAll(".item-row").length + " items";
+      }
+
+      // ─── RECALC ──────────────────────────────────────────────────────────────────
+      function recalc() {
+        let subtotal = 0,
+          totalQty = 0,
+          totalArea = 0;
+
+        document.querySelectorAll(".item-row").forEach((row) => {
+          const id = row.id.replace("row_", "");
+          const w = parseFloat(document.getElementById("w_" + id)?.value) || 0;
+          const h = parseFloat(document.getElementById("h_" + id)?.value) || 0;
+          const qty =
+            parseFloat(document.getElementById("qty_" + id)?.value) || 0;
+          const rate =
+            parseFloat(document.getElementById("rate_" + id)?.value) || 0;
+          const area = mmToSqft(w, h, qty);
+          const amt = Math.round(area * rate);
+          const areaEl = document.getElementById("area_" + id);
+          const amtEl = document.getElementById("amt_" + id);
+          if (areaEl) areaEl.textContent = area.toFixed(2);
+          if (amtEl) amtEl.textContent = amt ? inr(amt) : "₹0";
+          subtotal += amt;
+          totalQty += qty;
+          totalArea += area;
+        });
+
+        const transport =
+          parseFloat(document.getElementById("transport").value) || 0;
+        const inst =
+          parseFloat(document.getElementById("installation").value) || 0;
+        const grand = subtotal + transport + inst;
+        const rateSqf = totalArea ? grand / totalArea : 0;
+
+        document.getElementById("t_items").textContent = totalQty;
+        document.getElementById("t_area").textContent = totalArea.toFixed(2);
+        document.getElementById("t_sub").textContent = inr(subtotal);
+        document.getElementById("t_extra").textContent = inr(transport + inst);
+        document.getElementById("t_grand").textContent = inr(grand);
+        document.getElementById("t_rate_sqf").textContent =
+          "Rate/sqf: ₹" + rateSqf.toFixed(2);
+      }
+
+      // ─── COLLECT DATA ────────────────────────────────────────────────────────────
+      function collectData() {
+        const items = [];
+        document.querySelectorAll(".item-row").forEach((row) => {
+          const id = row.id.replace("row_", "");
+          const w = parseFloat(document.getElementById("w_" + id)?.value) || 0;
+          const h = parseFloat(document.getElementById("h_" + id)?.value) || 0;
+          const qty =
+            parseFloat(document.getElementById("qty_" + id)?.value) || 0;
+          const rate =
+            parseFloat(document.getElementById("rate_" + id)?.value) || 0;
+          const area = mmToSqft(w, h, qty);
+          const amount = Math.round(area * rate);
+          items.push({
+            no: document.getElementById("no_" + id)?.value || "",
+            type: document.getElementById("type_" + id)?.value || "",
+            w,
+            h,
+            qty,
+            rate,
+            area: parseFloat(area.toFixed(2)),
+            amount,
+          });
+        });
+
+        const transport =
+          parseFloat(document.getElementById("transport").value) || 0;
+        const installation =
+          parseFloat(document.getElementById("installation").value) || 0;
+        const subtotal = items.reduce((a, b) => a + b.amount, 0);
+        const grand = subtotal + transport + installation;
+        const totalArea = items.reduce((a, b) => a + b.area, 0);
+
+        return {
+          companyName: document.getElementById("companyName").value,
+          companyTag: document.getElementById("companyTag").value,
+          companyPhone: document.getElementById("companyPhone").value,
+          profileBrand: document.getElementById("profileBrand").value,
+          quoteNo: document.getElementById("quoteNo").value,
+          quoteDate: document.getElementById("quoteDate").value,
+          bankAcc: document.getElementById("bankAcc").value,
+          customerName: document.getElementById("customerName").value,
+          customerLocation: document.getElementById("customerLocation").value,
+          glassSpec: document.getElementById("glassSpec").value,
+          transport,
+          installation,
+          subtotal,
+          grand,
+          totalArea,
+          gstPct: document.getElementById("gstPct").value,
+          validity: document.getElementById("validity").value,
+          wProfile: document.getElementById("wProfile").value,
+          wHardware: document.getElementById("wHardware").value,
+          payTerms: document.getElementById("payTerms").value,
+          leadTime: document.getElementById("leadTime").value,
+          custNote: document.getElementById("custNote").value,
+          items,
+        };
+      }
+
+      // ─── PDF GENERATION ──────────────────────────────────────────────────────────
+      async function generatePDF() {
+        const btn = document.getElementById("genBtn");
+        btn.disabled = true;
+        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> <span>Generating…</span>`;
+
+        await new Promise((r) => setTimeout(r, 60));
+
+        try {
+          const d = collectData();
+          const { jsPDF } = window.jspdf;
+          const doc = new jsPDF({
+            orientation: "portrait",
+            unit: "mm",
+            format: "a4",
+          });
+
+          const PW = 210,
+            PH = 297;
+          const ML = 12,
+            MR = 12,
+            MT = 10;
+          const CW = PW - ML - MR;
+
+          // ── COMPANY HEADER ──
+          doc.setFontSize(16);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(192, 57, 43);
+          doc.text(d.companyName, PW / 2, MT + 6, { align: "center" });
+
+          doc.setFontSize(11);
+          doc.setFont("helvetica", "italic");
+          doc.setTextColor(26, 39, 68);
+          doc.text(d.companyTag, PW / 2, MT + 12, { align: "center" });
+
+          // quote meta left / right
+          doc.setFontSize(8);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(60, 60, 60);
+          doc.text(`QUOTE NO.  ${d.quoteNo}`, ML, MT + 4);
+          doc.text(`COLOR  ${d.profileBrand}`, ML, MT + 8);
+          doc.text(`PH: ${d.companyPhone}`, PW - MR, MT + 4, {
+            align: "right",
+          });
+          doc.text(`DATE: ${d.quoteDate}`, PW - MR, MT + 8, { align: "right" });
+
+          // red line
+          let y = MT + 15;
+          doc.setDrawColor(192, 57, 43);
+          doc.setLineWidth(0.6);
+          doc.line(ML, y, PW - MR, y);
+          y += 5;
+
+          // TITLE
+          doc.setFontSize(10.5);
+          doc.setFont("helvetica", "bold");
+          doc.setTextColor(26, 39, 68);
+          doc.text("ESTIMATE FOR UPVC WINDOWS & DOORS", PW / 2, y, {
+            align: "center",
+          });
+          y += 2;
+          // underline
+          const titleW = doc.getTextWidth("ESTIMATE FOR UPVC WINDOWS & DOORS");
+          doc.setLineWidth(0.4);
+          doc.line(PW / 2 - titleW / 2, y, PW / 2 + titleW / 2, y);
+          y += 5;
+
+          // Customer banner
+          doc.setFillColor(238, 242, 248);
+          doc.rect(ML, y, CW, 8, "F");
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(9);
+          doc.setTextColor(26, 39, 68);
+          doc.text(d.customerName.toUpperCase(), ML + 3, y + 5.5);
+          doc.setFont("helvetica", "normal");
+          doc.setTextColor(80, 80, 80);
+          doc.text(d.customerLocation, PW - MR - 3, y + 5.5, {
+            align: "right",
+          });
+          y += 11;
+
+          // ── ITEMS TABLE ──
+          const cols = [
+            { header: "S.No", dataKey: "sno" },
+            { header: "Win/\nDoor No.", dataKey: "no" },
+            { header: "Type / Description", dataKey: "type" },
+            { header: "Width\n(MM)", dataKey: "w" },
+            { header: "Height\n(MM)", dataKey: "h" },
+            { header: "Qty", dataKey: "qty" },
+            { header: "Area\n(Sqft)", dataKey: "area" },
+            { header: "Rate/\nSqft", dataKey: "rate" },
+            { header: "Amount\n(Rs.)", dataKey: "amount" },
+          ];
+
+          const rows = d.items.map((it, i) => ({
+            sno: i + 1,
+            no: it.no,
+            type: it.type,
+            w: it.w,
+            h: it.h,
+            qty: it.qty,
+            area: it.area.toFixed(2),
+            rate: it.rate,
+            amount: it.amount.toLocaleString("en-IN"),
+          }));
+
+          const totalQty = d.items.reduce((a, b) => a + b.qty, 0);
+          const totalArea = d.totalArea.toFixed(2);
+          const grandFmt = d.grand.toLocaleString("en-IN");
+
+          // Footer rows
+          rows.push(
+            {
+              sno: "",
+              no: "",
+              type: "TOTAL",
+              w: "",
+              h: totalQty,
+              qty: "",
+              area: totalArea,
+              rate: "",
+              amount: d.subtotal.toLocaleString("en-IN"),
+            },
+            {
+              sno: "",
+              no: "",
+              type: "",
+              w: "",
+              h: "",
+              qty: "",
+              area: "TRANSPORT & SHIFTING",
+              rate: "",
+              amount: d.transport.toLocaleString("en-IN"),
+            },
+            {
+              sno: "",
+              no: "",
+              type: "",
+              w: "",
+              h: "",
+              qty: "",
+              area: "INSTALLATION",
+              rate: "",
+              amount: d.installation.toLocaleString("en-IN"),
+            },
+            {
+              sno: `Rate/Sqf: ${d.totalArea ? (d.grand / d.totalArea).toFixed(2) : "0"}`,
+              no: "",
+              type: "",
+              w: "",
+              h: "",
+              qty: "",
+              area: "GRAND TOTAL",
+              rate: "",
+              amount: grandFmt,
+            },
+          );
+
+          const nItems = d.items.length;
+          const nRows = rows.length;
+
+          doc.autoTable({
+            startY: y,
+            columns: cols,
+            body: rows,
+            margin: { left: ML, right: MR },
+            tableWidth: CW,
+            columnStyles: {
+              sno: { cellWidth: 9, halign: "center" },
+              no: { cellWidth: 16, halign: "center" },
+              type: { cellWidth: 62, halign: "left" },
+              w: { cellWidth: 16, halign: "center" },
+              h: { cellWidth: 16, halign: "center" },
+              qty: { cellWidth: 11, halign: "center" },
+              area: { cellWidth: 20, halign: "center" },
+              rate: { cellWidth: 16, halign: "center" },
+              amount: { cellWidth: 20, halign: "right" },
+            },
+            headStyles: {
+              fillColor: [26, 39, 68],
+              textColor: 255,
+              fontStyle: "bold",
+              fontSize: 7.5,
+              halign: "center",
+              cellPadding: 2.5,
+            },
+            bodyStyles: { fontSize: 8, cellPadding: 2, valign: "middle" },
+            alternateRowStyles: { fillColor: [247, 244, 238] },
+            didParseCell(data) {
+              const r = data.row.index;
+              // total row
+              if (r === nItems) {
+                data.cell.styles.fontStyle = "bold";
+                data.cell.styles.fillColor = [230, 236, 248];
+                data.cell.styles.textColor = [26, 39, 68];
+              }
+              // transport/installation rows
+              if (r === nItems + 1 || r === nItems + 2) {
+                data.cell.styles.fontSize = 7.5;
+                if (data.column.dataKey === "area")
+                  data.cell.styles.halign = "right";
+              }
+              // grand total row
+              if (r === nItems + 3) {
+                data.cell.styles.fontStyle = "bold";
+                data.cell.styles.fillColor = [26, 39, 68];
+                data.cell.styles.textColor = [255, 255, 255];
+                if (data.column.dataKey === "amount")
+                  data.cell.styles.textColor = [255, 193, 7];
+                if (data.column.dataKey === "area")
+                  data.cell.styles.halign = "right";
+              }
+            },
+          });
+
+          y = doc.lastAutoTable.finalY + 4;
+
+          // GST note
+          doc.setFontSize(8);
+          doc.setFont("helvetica", "italic");
+          doc.setTextColor(192, 57, 43);
+          doc.text(
+            `* GST @ ${d.gstPct}% EXTRA on the above Grand Total`,
+            PW - MR,
+            y,
+            { align: "right" },
+          );
+          y += 6;
+
+          // Divider
+          doc.setDrawColor(180, 180, 180);
+          doc.setLineWidth(0.3);
+          doc.line(ML, y, PW - MR, y);
+          y += 5;
+
+          // ── TERMS ──
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(9);
+          doc.setTextColor(26, 39, 68);
+          doc.text("Terms & Conditions :-", ML, y);
+          y += 5;
+
+          const terms = [
+            ["Profile", `${d.profileBrand} – ${d.wProfile}`],
+            ["Hardware", d.wHardware],
+            ["Glass", `INCLUDED – ${d.glassSpec}`],
+            ["Installation", "INCLUDED"],
+            ["Transportation", "INCLUDED"],
+            ["Time Required", d.leadTime],
+            ["Payment", d.payTerms],
+            ["Bank Details", d.bankAcc],
+            ["Taxes", "AS APPLICABLE (INCLUDED)"],
+            [
+              "Validity",
+              `Rates valid for ${d.validity} days from the date of this quotation.`,
+            ],
+            ["Note", d.custNote],
+          ];
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(7.8);
+          doc.setTextColor(50, 50, 50);
+
+          const labelW = 26;
+          terms.forEach(([k, v]) => {
+            if (y > PH - 20) {
+              doc.addPage();
+              y = 15;
+            }
+            doc.setFont("helvetica", "bold");
+            doc.text(k, ML, y);
+            doc.setFont("helvetica", "normal");
+            const lines = doc.splitTextToSize(": " + v, CW - labelW);
+            doc.text(lines, ML + labelW, y);
+            y += lines.length * 4.5 + 1;
+          });
+
+          y += 4;
+          if (y > PH - 22) {
+            doc.addPage();
+            y = 15;
+          }
+
+          // Signature
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8.5);
+          doc.setTextColor(26, 39, 68);
+          doc.text(`For: ${d.companyName}`, PW - MR, y, { align: "right" });
+          y += 14;
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(8);
+          doc.setTextColor(100, 100, 100);
+          doc.text("Authorised Signatory", PW - MR, y, { align: "right" });
+
+          // ── SAVE ──
+          const filename = `Quote_${d.quoteNo || "UPVC"}_${d.customerName.replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
+          doc.save(filename);
+
+          const toast = document.getElementById("toast");
+          toast.textContent = `✓ "${filename}" downloaded!`;
+          toast.classList.add("show");
+          setTimeout(() => toast.classList.remove("show"), 3000);
+        } catch (err) {
+          console.error(err);
+          alert("Error generating PDF: " + err.message);
+        } finally {
+          btn.disabled = false;
+          btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>Download PDF Quote</span>`;
         }
-        // grand total row
-        if (r === nItems + 3) {
-          data.cell.styles.fontStyle = 'bold';
-          data.cell.styles.fillColor = [26, 39, 68];
-          data.cell.styles.textColor = [255, 255, 255];
-          if (data.column.dataKey === 'amount') data.cell.styles.textColor = [255, 193, 7];
-          if (data.column.dataKey === 'area') data.cell.styles.halign = 'right';
-        }
-      },
-    });
+      }
 
-    y = doc.lastAutoTable.finalY + 4;
-
-    // GST note
-    doc.setFontSize(8);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(192, 57, 43);
-    doc.text(`* GST @ ${d.gstPct}% EXTRA on the above Grand Total`, PW - MR, y, { align: 'right' });
-    y += 6;
-
-    // Divider
-    doc.setDrawColor(180, 180, 180);
-    doc.setLineWidth(0.3);
-    doc.line(ML, y, PW - MR, y);
-    y += 5;
-
-    // ── TERMS ──
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
-    doc.setTextColor(26, 39, 68);
-    doc.text('Terms & Conditions :-', ML, y);
-    y += 5;
-
-    const terms = [
-      ['Profile', `${d.profileBrand} – ${d.wProfile}`],
-      ['Hardware', d.wHardware],
-      ['Glass', `INCLUDED – ${d.glassSpec}`],
-      ['Installation', 'INCLUDED'],
-      ['Transportation', 'INCLUDED'],
-      ['Time Required', d.leadTime],
-      ['Payment', d.payTerms],
-      ['Bank Details', d.bankAcc],
-      ['Taxes', 'AS APPLICABLE (INCLUDED)'],
-      ['Validity', `Rates valid for ${d.validity} days from the date of this quotation.`],
-      ['Note', d.custNote],
-    ];
-
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(7.8);
-    doc.setTextColor(50, 50, 50);
-
-    const labelW = 26;
-    terms.forEach(([k, v]) => {
-      if (y > PH - 20) { doc.addPage(); y = 15; }
-      doc.setFont('helvetica', 'bold');
-      doc.text(k, ML, y);
-      doc.setFont('helvetica', 'normal');
-      const lines = doc.splitTextToSize(': ' + v, CW - labelW);
-      doc.text(lines, ML + labelW, y);
-      y += lines.length * 4.5 + 1;
-    });
-
-    y += 4;
-    if (y > PH - 22) { doc.addPage(); y = 15; }
-
-    // Signature
-    doc.setFont('helvetica', 'bold');
-    doc.setFontSize(8.5);
-    doc.setTextColor(26, 39, 68);
-    doc.text(`For: ${d.companyName}`, PW - MR, y, { align: 'right' });
-    y += 14;
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text('Authorised Signatory', PW - MR, y, { align: 'right' });
-
-    // ── SAVE ──
-    const filename = `Quote_${d.quoteNo || 'UPVC'}_${d.customerName.replace(/[^a-zA-Z0-9]/g, '_')}.pdf`;
-    doc.save(filename);
-
-    const toast = document.getElementById('toast');
-    toast.textContent = `✓ "${filename}" downloaded!`;
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 3000);
-
-  } catch (err) {
-    console.error(err);
-    alert('Error generating PDF: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>Download PDF Quote</span>`;
-  }
-}
-
-// ─── INIT ────────────────────────────────────────────────────────────────────
-(function init() {
-  const container = document.getElementById('itemsContainer');
-  DEFAULT.forEach(item => container.appendChild(createRow(item)));
-  document.getElementById('quoteDate').value = new Date().toISOString().slice(0, 10);
-  renumber();
-  recalc();
-})();
-</script>
-</body>
+      // ─── INIT ────────────────────────────────────────────────────────────────────
+      (function init() {
+        const container = document.getElementById("itemsContainer");
+        DEFAULT.forEach((item) => container.appendChild(createRow(item)));
+        document.getElementById("quoteDate").value = new Date()
+          .toISOString()
+          .slice(0, 10);
+        renumber();
+        recalc();
+      })();
+    </script>
+  </body>
 </html>
