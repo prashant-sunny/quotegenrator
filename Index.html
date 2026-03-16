@@ -2,8 +2,11 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UPVC Quote Generator – JHA Brother Enterprises</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>Quote Generator</title>
     <link
       href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap"
       rel="stylesheet"
@@ -34,116 +37,134 @@
         min-height: 100vh;
       }
 
-      /* HEADER */
+      /* ── HEADER ── */
       header {
         background: var(--accent2);
         color: white;
-        padding: 18px 36px;
+        padding: 14px 20px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         position: sticky;
         top: 0;
         z-index: 100;
-        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.18);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+        gap: 12px;
       }
       .header-left {
         display: flex;
         align-items: center;
-        gap: 14px;
+        gap: 10px;
+        min-width: 0;
       }
       .header-logo {
-        font-size: 28px;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .header-text {
+        min-width: 0;
       }
       header h1 {
         font-family: "DM Serif Display", serif;
-        font-size: 20px;
-        letter-spacing: 0.3px;
+        font-size: 17px;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       header p {
-        font-size: 12px;
-        opacity: 0.55;
+        font-size: 11px;
+        opacity: 0.5;
         font-weight: 300;
         margin-top: 1px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       .gen-btn {
         background: var(--accent);
         color: white;
         border: none;
-        padding: 12px 28px;
+        padding: 10px 16px;
         border-radius: 7px;
         font-family: "DM Sans", sans-serif;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 600;
         cursor: pointer;
-        letter-spacing: 0.3px;
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
         transition: all 0.2s;
         box-shadow: 0 3px 10px rgba(192, 57, 43, 0.35);
+        flex-shrink: 0;
+        white-space: nowrap;
       }
       .gen-btn:hover {
         background: #a93226;
-        transform: translateY(-1px);
       }
       .gen-btn:active {
-        transform: none;
+        opacity: 0.85;
+        transform: scale(0.97);
       }
       .gen-btn:disabled {
         background: #999;
         cursor: not-allowed;
-        transform: none;
         box-shadow: none;
       }
+      .gen-btn .btn-label {
+        display: inline;
+      }
 
-      /* MAIN LAYOUT */
+      /* ── LAYOUT ── */
       .container {
         max-width: 1120px;
         margin: 0 auto;
-        padding: 28px 18px 80px;
+        padding: 20px 14px 100px;
       }
 
       .section {
         background: var(--card);
         border: 1px solid var(--border);
         border-radius: 10px;
-        padding: 26px 30px;
-        margin-bottom: 20px;
+        padding: 20px 18px;
+        margin-bottom: 16px;
         box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
       }
       .section-title {
         font-family: "DM Serif Display", serif;
         font-size: 15px;
         color: var(--accent2);
-        margin-bottom: 18px;
-        padding-bottom: 10px;
+        margin-bottom: 16px;
+        padding-bottom: 9px;
         border-bottom: 2px solid var(--accent);
         display: flex;
         align-items: center;
         gap: 8px;
+        flex-wrap: wrap;
       }
 
+      /* ── GRIDS ── */
       .grid2 {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 14px;
+        gap: 12px;
       }
       .grid3 {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
-        gap: 14px;
+        gap: 12px;
       }
       .grid4 {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        gap: 14px;
+        gap: 12px;
       }
 
+      /* ── FIELDS ── */
       .field label {
         display: block;
-        font-size: 11px;
+        font-size: 10.5px;
         font-weight: 600;
         color: var(--muted);
         text-transform: uppercase;
@@ -153,17 +174,17 @@
       .field input,
       .field select {
         width: 100%;
-        padding: 9px 13px;
+        padding: 10px 12px;
         border: 1.5px solid var(--border);
         border-radius: 6px;
         font-family: "DM Sans", sans-serif;
-        font-size: 13.5px;
+        font-size: 14px;
         background: var(--input-bg);
         color: var(--text);
         outline: none;
-        transition:
-          border 0.2s,
-          background 0.2s;
+        -webkit-appearance: none;
+        appearance: none;
+        transition: border 0.2s;
       }
       .field input:focus,
       .field select:focus {
@@ -171,23 +192,30 @@
         background: white;
       }
 
-      /* ITEMS TABLE */
+      /* ── DESKTOP ITEMS TABLE ── */
+      .items-desktop {
+        display: block;
+      }
+      .items-mobile {
+        display: none;
+      }
+
       .items-header,
-      .item-row {
+      .item-row-desktop {
         display: grid;
-        grid-template-columns: 36px 80px 1fr 84px 84px 60px 84px 90px 84px 36px;
-        gap: 6px;
+        grid-template-columns: 32px 72px 1fr 76px 76px 56px 76px 82px 76px 32px;
+        gap: 5px;
         align-items: center;
       }
       .items-header {
-        padding: 6px 2px 10px;
-        font-size: 10.5px;
+        padding: 5px 2px 9px;
+        font-size: 10px;
         font-weight: 700;
         color: var(--muted);
         text-transform: uppercase;
         letter-spacing: 0.4px;
         border-bottom: 2px solid var(--border);
-        margin-bottom: 6px;
+        margin-bottom: 5px;
       }
       .items-header div {
         text-align: center;
@@ -196,18 +224,18 @@
         text-align: left;
       }
 
-      .item-row {
-        padding: 5px 2px;
+      .item-row-desktop {
+        padding: 4px 2px;
         border-radius: 6px;
         transition: background 0.15s;
       }
-      .item-row:hover {
+      .item-row-desktop:hover {
         background: var(--row-hover);
       }
-      .item-row input,
-      .item-row select {
-        padding: 7px 8px;
-        font-size: 12.5px;
+      .item-row-desktop input,
+      .item-row-desktop select {
+        padding: 7px 6px;
+        font-size: 12px;
         border: 1.5px solid var(--border);
         border-radius: 5px;
         background: var(--input-bg);
@@ -216,16 +244,110 @@
         outline: none;
         width: 100%;
         text-align: center;
+        -webkit-appearance: none;
+        appearance: none;
         transition: border 0.15s;
       }
-      .item-row input:focus,
-      .item-row select:focus {
+      .item-row-desktop input:focus,
+      .item-row-desktop select:focus {
         border-color: var(--accent2);
         background: white;
       }
-      .item-row .type-input {
+      .item-row-desktop .type-input {
         text-align: left;
       }
+
+      /* ── MOBILE ITEM CARDS ── */
+      .item-card {
+        background: var(--input-bg);
+        border: 1.5px solid var(--border);
+        border-radius: 10px;
+        padding: 14px 14px 10px;
+        margin-bottom: 10px;
+        position: relative;
+      }
+      .item-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 10px;
+      }
+      .item-card-num {
+        background: var(--accent2);
+        color: white;
+        font-size: 11px;
+        font-weight: 700;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .item-card-amount {
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--accent2);
+      }
+      .item-card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-bottom: 8px;
+      }
+      .item-card-full {
+        grid-column: 1 / -1;
+      }
+      .item-card label {
+        display: block;
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        margin-bottom: 4px;
+      }
+      .item-card input,
+      .item-card select {
+        width: 100%;
+        padding: 9px 10px;
+        border: 1.5px solid var(--border);
+        border-radius: 6px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 14px;
+        background: white;
+        color: var(--text);
+        outline: none;
+        -webkit-appearance: none;
+        appearance: none;
+      }
+      .item-card input:focus,
+      .item-card select:focus {
+        border-color: var(--accent2);
+      }
+      .item-card-area {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: right;
+        margin-top: 4px;
+      }
+      .item-card-remove {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: #ccc;
+        font-size: 20px;
+        line-height: 1;
+        padding: 2px 6px;
+        border-radius: 5px;
+        transition: color 0.15s;
+      }
+      .item-card-remove:hover,
+      .item-card-remove:active {
+        color: var(--accent);
+      }
+
+      /* shared helpers */
       .row-num {
         text-align: center;
         font-size: 12px;
@@ -266,30 +388,33 @@
         background: none;
         border: 1.5px dashed var(--border);
         color: var(--muted);
-        padding: 9px 18px;
-        border-radius: 6px;
+        padding: 11px 18px;
+        border-radius: 8px;
         cursor: pointer;
         font-family: "DM Sans", sans-serif;
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
         transition: all 0.15s;
-        display: inline-flex;
+        display: flex;
         align-items: center;
+        justify-content: center;
         gap: 6px;
+        width: 100%;
       }
-      .add-row-btn:hover {
+      .add-row-btn:hover,
+      .add-row-btn:active {
         border-color: var(--accent);
         color: var(--accent);
         background: #fff5f4;
       }
 
-      /* TOTALS */
+      /* ── TOTALS ── */
       .totals-row-outer {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
         margin-top: 20px;
-        gap: 20px;
+        gap: 16px;
         flex-wrap: wrap;
       }
       .charges-grid {
@@ -297,13 +422,14 @@
         grid-template-columns: 1fr 1fr;
         gap: 12px;
         flex: 1;
-        min-width: 260px;
+        min-width: 240px;
       }
       .totals-box {
-        min-width: 280px;
+        width: 100%;
+        max-width: 340px;
         background: var(--accent2);
-        border-radius: 9px;
-        padding: 18px 22px;
+        border-radius: 10px;
+        padding: 18px 20px;
         color: white;
         flex-shrink: 0;
       }
@@ -311,7 +437,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 5px 0;
+        padding: 6px 0;
         font-size: 13px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       }
@@ -331,39 +457,70 @@
       }
       .tot-line.grand .lbl,
       .tot-line.grand .val {
-        font-size: 16px;
+        font-size: 15px;
         opacity: 1;
       }
       .tot-line.grand .val {
         color: #ffc107;
       }
 
-      /* TOAST */
+      /* ── FLOATING GENERATE BUTTON (mobile) ── */
+      .fab {
+        display: none;
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 200;
+        background: var(--accent);
+        color: white;
+        border: none;
+        padding: 15px 32px;
+        border-radius: 50px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 6px 24px rgba(192, 57, 43, 0.45);
+        display: none;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        transition: all 0.2s;
+      }
+      .fab:active {
+        transform: translateX(-50%) scale(0.96);
+      }
+      .fab:disabled {
+        background: #999;
+        box-shadow: none;
+      }
+
+      /* ── TOAST ── */
       .toast {
         position: fixed;
-        bottom: 22px;
-        right: 22px;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%) translateY(60px);
         background: #27ae60;
         color: white;
-        padding: 13px 20px;
-        border-radius: 8px;
+        padding: 12px 20px;
+        border-radius: 50px;
         font-size: 13.5px;
         font-weight: 500;
-        transform: translateY(70px);
         opacity: 0;
         transition: all 0.3s;
         pointer-events: none;
         z-index: 999;
-        display: flex;
-        align-items: center;
-        gap: 8px;
+        white-space: nowrap;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
       }
       .toast.show {
-        transform: translateY(0);
+        transform: translateX(-50%) translateY(0);
         opacity: 1;
       }
 
-      /* BADGE */
+      /* ── BADGE ── */
       .badge {
         background: var(--accent);
         color: white;
@@ -372,28 +529,66 @@
         border-radius: 20px;
         font-weight: 700;
         letter-spacing: 0.4px;
-        margin-left: 4px;
       }
 
-      @media (max-width: 800px) {
+      /* ── RESPONSIVE ── */
+      @media (max-width: 900px) {
+        .grid4 {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .container {
+          padding: 14px 10px 100px;
+        }
+        .section {
+          padding: 16px 14px;
+        }
         .grid2,
         .grid3,
         .grid4 {
           grid-template-columns: 1fr;
         }
-        .items-header {
+
+        /* Switch items display */
+        .items-desktop {
+          display: none !important;
+        }
+        .items-mobile {
+          display: block;
+        }
+
+        /* Hide header generate button, show FAB */
+        .gen-btn {
           display: none;
         }
-        .item-row {
-          grid-template-columns: 1fr 1fr;
-          gap: 6px;
-          padding: 10px;
-          background: var(--input-bg);
-          border: 1px solid var(--border);
-          border-radius: 8px;
-          margin-bottom: 8px;
+        .fab {
+          display: flex;
         }
-        .gen-btn span {
+
+        /* Totals go full width stacked */
+        .totals-row-outer {
+          flex-direction: column;
+        }
+        .charges-grid {
+          min-width: 0;
+          width: 100%;
+        }
+        .totals-box {
+          max-width: 100%;
+        }
+
+        .toast {
+          bottom: 90px;
+        }
+      }
+
+      @media (max-width: 400px) {
+        header h1 {
+          font-size: 15px;
+        }
+        header p {
           display: none;
         }
       }
@@ -403,15 +598,15 @@
     <header>
       <div class="header-left">
         <div class="header-logo">🪟</div>
-        <div>
-          <h1>UPVC Quote Generator</h1>
-          <p>Windows &amp; Doors Estimation System</p>
+        <div class="header-text">
+          <h1>Quote Generator</h1>
+          <p>UPVC Windows &amp; Doors</p>
         </div>
       </div>
       <button class="gen-btn" id="genBtn" onclick="generatePDF()">
         <svg
-          width="16"
-          height="16"
+          width="15"
+          height="15"
           fill="none"
           stroke="currentColor"
           stroke-width="2.5"
@@ -422,7 +617,7 @@
           <line x1="12" y1="18" x2="12" y2="12" />
           <line x1="9" y1="15" x2="15" y2="15" />
         </svg>
-        <span>Download PDF Quote</span>
+        <span class="btn-label">Download PDF</span>
       </button>
     </header>
 
@@ -433,31 +628,44 @@
         <div class="grid3">
           <div class="field">
             <label>Company Name</label
-            ><input id="companyName" value="JHA BROTHER ENTERPRISES" />
+            ><input
+              id="companyName"
+              value="JHA BROTHER ENTERPRISES"
+              autocomplete="off"
+            />
           </div>
           <div class="field">
             <label>Sub-title / Tagline</label
-            ><input id="companyTag" value="HOME DECOR" />
+            ><input id="companyTag" value="HOME DECOR" autocomplete="off" />
           </div>
           <div class="field">
-            <label>Phone</label><input id="companyPhone" value="7065856717" />
+            <label>Phone</label
+            ><input id="companyPhone" value="7065856717" type="tel" />
           </div>
         </div>
         <div class="grid4" style="margin-top: 12px">
           <div class="field">
             <label>Profile Brand</label
-            ><input id="profileBrand" value="ENCRAFT WHITE COLOR" />
+            ><input
+              id="profileBrand"
+              value="ENCRAFT WHITE COLOR"
+              autocomplete="off"
+            />
           </div>
           <div class="field">
             <label>Quote Number</label
-            ><input id="quoteNo" value="JBE20-21.0178" />
+            ><input id="quoteNo" value="JBE20-21.0178" autocomplete="off" />
           </div>
           <div class="field">
             <label>Quote Date</label><input id="quoteDate" type="date" />
           </div>
           <div class="field">
-            <label>Bank A/C (optional)</label
-            ><input id="bankAcc" value="9614111560 | KOTAK MAHINDRA BANK" />
+            <label>Bank A/C</label
+            ><input
+              id="bankAcc"
+              value="9614111560 | KOTAK MAHINDRA BANK"
+              autocomplete="off"
+            />
           </div>
         </div>
       </div>
@@ -468,17 +676,26 @@
         <div class="grid3">
           <div class="field">
             <label>Customer Name</label
-            ><input id="customerName" value="MR. SITARAM BANSAL" />
+            ><input
+              id="customerName"
+              value="MR. SITARAM BANSAL"
+              autocomplete="off"
+            />
           </div>
           <div class="field">
             <label>Location / Project</label
-            ><input id="customerLocation" value="SHALIMAR BAGH" />
+            ><input
+              id="customerLocation"
+              value="SHALIMAR BAGH"
+              autocomplete="off"
+            />
           </div>
           <div class="field">
             <label>Glass Specification</label
             ><input
               id="glassSpec"
               value="Saint Gobain 6mm clear toughened glass"
+              autocomplete="off"
             />
           </div>
         </div>
@@ -491,61 +708,76 @@
           <span class="badge" id="itemCount">9 items</span>
         </div>
 
-        <div class="items-header">
-          <div>#</div>
-          <div>Win/Door No.</div>
-          <div style="text-align: left">Type / Description</div>
-          <div>Width (mm)</div>
-          <div>Height (mm)</div>
-          <div>Qty</div>
-          <div>Area (sqft)</div>
-          <div>Rate/sqft (₹)</div>
-          <div>Amount (₹)</div>
-          <div></div>
+        <!-- Desktop table view -->
+        <div class="items-desktop">
+          <div class="items-header">
+            <div>#</div>
+            <div>Win/Door No.</div>
+            <div style="text-align: left">Type / Description</div>
+            <div>Width (mm)</div>
+            <div>Height (mm)</div>
+            <div>Qty</div>
+            <div>Area (sqft)</div>
+            <div>Rate/sqft (₹)</div>
+            <div>Amount (₹)</div>
+            <div></div>
+          </div>
+          <div id="itemsDesktop"></div>
         </div>
 
-        <div id="itemsContainer"></div>
-        <button class="add-row-btn" onclick="addRow()">＋ Add Item</button>
+        <!-- Mobile card view -->
+        <div class="items-mobile">
+          <div id="itemsMobile"></div>
+        </div>
 
+        <button class="add-row-btn" onclick="addRow()">
+          ＋ Add Window / Door
+        </button>
+
+        <!-- Totals -->
         <div class="totals-row-outer">
           <div class="charges-grid">
             <div class="field">
-              <label>Transport &amp; Shifting (₹)</label>
-              <input
+              <label>Transport &amp; Shifting (₹)</label
+              ><input
                 type="number"
                 id="transport"
                 value="6500"
+                inputmode="numeric"
                 oninput="recalc()"
               />
             </div>
             <div class="field">
-              <label>Installation (₹)</label>
-              <input
+              <label>Installation (₹)</label
+              ><input
                 type="number"
                 id="installation"
                 value="27750"
+                inputmode="numeric"
                 oninput="recalc()"
               />
             </div>
             <div class="field">
-              <label>GST %</label>
+              <label>GST</label>
               <select id="gstPct" onchange="recalc()">
                 <option value="0">GST @ 0% (not included)</option>
-                <option value="18" selected>
-                  GST @ 18% (extra / shown separately)
-                </option>
-                <option value="28">GST @ 28% (extra / shown separately)</option>
+                <option value="18" selected>GST @ 18% (extra)</option>
+                <option value="28">GST @ 28% (extra)</option>
               </select>
             </div>
             <div class="field">
-              <label>Validity (days)</label>
-              <input type="number" id="validity" value="30" />
+              <label>Validity (days)</label
+              ><input
+                type="number"
+                id="validity"
+                value="30"
+                inputmode="numeric"
+              />
             </div>
           </div>
-
           <div class="totals-box">
             <div class="tot-line">
-              <span class="lbl">Total Items</span
+              <span class="lbl">Total Items (qty)</span
               ><span class="val" id="t_items">0</span>
             </div>
             <div class="tot-line">
@@ -557,14 +789,14 @@
               ><span class="val" id="t_sub">₹0</span>
             </div>
             <div class="tot-line">
-              <span class="lbl">Transport + Installation</span
+              <span class="lbl">Transport + Install</span
               ><span class="val" id="t_extra">₹0</span>
             </div>
             <div class="tot-line grand">
               <span class="lbl">Grand Total</span
               ><span class="val" id="t_grand">₹0</span>
             </div>
-            <div class="tot-line" style="margin-top: 4px">
+            <div class="tot-line">
               <span class="lbl" style="opacity: 0.4; font-size: 9px"
                 >+ GST extra as applicable</span
               ><span
@@ -616,10 +848,28 @@
       </div>
     </div>
 
+    <!-- Floating action button (mobile only) -->
+    <button class="fab" id="fabBtn" onclick="generatePDF()">
+      <svg
+        width="17"
+        height="17"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        viewBox="0 0 24 24"
+      >
+        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z" />
+        <polyline points="14,2 14,8 20,8" />
+        <line x1="12" y1="18" x2="12" y2="12" />
+        <line x1="9" y1="15" x2="15" y2="15" />
+      </svg>
+      Download PDF
+    </button>
+
     <div class="toast" id="toast">✓ PDF downloaded!</div>
 
     <script>
-      // ─── DATA ────────────────────────────────────────────────────────────────────
+      // ─── CONSTANTS ───────────────────────────────────────────────────────────────
       const TYPES = [
         "3 TRACK SLIDING, SS MESH, 6MM GLASS, D HANDLE",
         "CASEMENT DOOR, 6MM TUFF GLASS, CYLINDER LOCK",
@@ -709,103 +959,244 @@
       ];
 
       let rowId = 0;
-      const SQFT_PER_MM2 = 1 / (304.8 * 304.8);
+      const SQFT = 1 / (304.8 * 304.8);
 
       function mmToSqft(w, h, qty) {
-        return w * h * SQFT_PER_MM2 * qty;
+        return w * h * SQFT * qty;
       }
-
       function inr(n) {
         return "₹" + Math.round(n).toLocaleString("en-IN");
       }
-
-      // ─── ROW CREATION ────────────────────────────────────────────────────────────
-      function createRow(item = {}) {
-        const id = rowId++;
-        const div = document.createElement("div");
-        div.className = "item-row";
-        div.id = "row_" + id;
-
-        const opts =
+      function typeOpts(selected) {
+        return (
           TYPES.map(
             (t) =>
-              `<option value="${t}"${t === item.type ? " selected" : ""}>${t}</option>`,
+              `<option value="${t}"${t === selected ? " selected" : ""}>${t}</option>`,
           ).join("") +
-          `<option value="_custom"${!TYPES.includes(item.type) && item.type ? " selected" : ""}>-- Custom --</option>`;
+          `<option value="_custom"${!TYPES.includes(selected) && selected ? " selected" : ""}>-- Custom --</option>`
+        );
+      }
 
+      // ─── DESKTOP ROW ─────────────────────────────────────────────────────────────
+      function createDesktopRow(item = {}) {
+        const id = rowId++;
+        const div = document.createElement("div");
+        div.className = "item-row-desktop";
+        div.id = "drow_" + id;
+        div.dataset.rid = id;
         div.innerHTML = `
     <div class="row-num" id="rn_${id}">–</div>
     <input type="text" placeholder="W1" value="${item.no || ""}" id="no_${id}" oninput="recalc()"/>
-    <select id="type_${id}" onchange="onTypeChange(${id})" class="type-input">${opts}</select>
-    <input type="number" placeholder="mm" value="${item.w || ""}" id="w_${id}" oninput="recalc()" min="0"/>
-    <input type="number" placeholder="mm" value="${item.h || ""}" id="h_${id}" oninput="recalc()" min="0"/>
-    <input type="number" placeholder="1" value="${item.qty || 1}" id="qty_${id}" oninput="recalc()" min="1"/>
+    <select id="type_${id}" onchange="onTypeChange(${id})" class="type-input">${typeOpts(item.type || "")}</select>
+    <input type="number" placeholder="mm" value="${item.w || ""}" id="w_${id}" oninput="recalc()" inputmode="numeric"/>
+    <input type="number" placeholder="mm" value="${item.h || ""}" id="h_${id}" oninput="recalc()" inputmode="numeric"/>
+    <input type="number" placeholder="1"  value="${item.qty || 1}" id="qty_${id}" oninput="recalc()" inputmode="numeric"/>
     <div class="row-area" id="area_${id}">0.00</div>
-    <input type="number" placeholder="₹/sqft" value="${item.rate || ""}" id="rate_${id}" oninput="recalc()" min="0"/>
+    <input type="number" placeholder="₹" value="${item.rate || ""}" id="rate_${id}" oninput="recalc()" inputmode="numeric"/>
     <div class="row-amount" id="amt_${id}">₹0</div>
-    <button class="remove-btn" onclick="removeRow('row_${id}')" title="Remove">×</button>
+    <button class="remove-btn" onclick="removeRow(${id})" title="Remove">×</button>
   `;
         return div;
       }
 
+      // ─── MOBILE CARD ─────────────────────────────────────────────────────────────
+      function createMobileCard(item = {}, id) {
+        const div = document.createElement("div");
+        div.className = "item-card";
+        div.id = "mrow_" + id;
+        div.dataset.rid = id;
+        div.innerHTML = `
+    <div class="item-card-header">
+      <div class="item-card-num" id="mrn_${id}">–</div>
+      <div class="item-card-amount" id="mamt_${id}">₹0</div>
+      <button class="item-card-remove" onclick="removeRow(${id})">×</button>
+    </div>
+    <div class="item-card-grid">
+      <div class="item-card-full">
+        <label>Type / Description</label>
+        <select id="mtype_${id}" onchange="onTypeChange(${id})">${typeOpts(item.type || "")}</select>
+      </div>
+      <div>
+        <label>Win/Door No.</label>
+        <input type="text" placeholder="W1" value="${item.no || ""}" id="mno_${id}" oninput="recalc()"/>
+      </div>
+      <div>
+        <label>Rate / sqft (₹)</label>
+        <input type="number" placeholder="₹" value="${item.rate || ""}" id="mrate_${id}" oninput="recalc()" inputmode="numeric"/>
+      </div>
+      <div>
+        <label>Width (mm)</label>
+        <input type="number" placeholder="mm" value="${item.w || ""}" id="mw_${id}" oninput="recalc()" inputmode="numeric"/>
+      </div>
+      <div>
+        <label>Height (mm)</label>
+        <input type="number" placeholder="mm" value="${item.h || ""}" id="mh_${id}" oninput="recalc()" inputmode="numeric"/>
+      </div>
+      <div>
+        <label>Qty</label>
+        <input type="number" placeholder="1" value="${item.qty || 1}" id="mqty_${id}" oninput="recalc()" inputmode="numeric"/>
+      </div>
+      <div>
+        <label>Area (sqft)</label>
+        <div class="item-card-amount" style="font-size:13px" id="marea_${id}">0.00</div>
+      </div>
+    </div>
+  `;
+        return div;
+      }
+
+      // ─── TYPE CHANGE ─────────────────────────────────────────────────────────────
       function onTypeChange(id) {
-        const sel = document.getElementById("type_" + id);
-        if (sel.value === "_custom") {
+        // sync both desktop and mobile selects
+        const dSel = document.getElementById("type_" + id);
+        const mSel = document.getElementById("mtype_" + id);
+        const active = dSel || mSel; // whichever triggered
+        if (active && active.value === "_custom") {
           const val = prompt("Enter custom description:");
           if (val) {
-            const opt = document.createElement("option");
-            opt.value = val;
-            opt.text = val;
-            opt.selected = true;
-            sel.add(opt);
+            [dSel, mSel].forEach((s) => {
+              if (!s) return;
+              const opt = document.createElement("option");
+              opt.value = val;
+              opt.text = val;
+              opt.selected = true;
+              s.add(opt);
+            });
           } else {
-            sel.value = TYPES[0];
+            if (dSel) dSel.value = TYPES[0];
+            if (mSel) mSel.value = TYPES[0];
+          }
+        } else {
+          // sync value across both
+          if (dSel && mSel) {
+            if (document.activeElement === dSel) mSel.value = dSel.value;
+            else if (document.activeElement === mSel) dSel.value = mSel.value;
           }
         }
         recalc();
       }
 
-      function removeRow(id) {
-        document.getElementById(id)?.remove();
+      // ─── ADD / REMOVE ─────────────────────────────────────────────────────────────
+      function addRow(item = {}) {
+        const id = rowId++;
+        // store in global map
+        rowMap[id] = { ...item };
+
+        const dRow = createDesktopRow_withId(item, id);
+        const mCard = createMobileCard(item, id);
+
+        document.getElementById("itemsDesktop").appendChild(dRow);
+        document.getElementById("itemsMobile").appendChild(mCard);
+
         renumber();
         recalc();
       }
 
-      function addRow() {
-        document.getElementById("itemsContainer").appendChild(createRow());
+      function removeRow(id) {
+        document.getElementById("drow_" + id)?.remove();
+        document.getElementById("mrow_" + id)?.remove();
+        delete rowMap[id];
         renumber();
         recalc();
       }
 
       function renumber() {
-        document.querySelectorAll(".item-row").forEach((r, i) => {
+        const dRows = document.querySelectorAll(
+          "#itemsDesktop .item-row-desktop",
+        );
+        const mCards = document.querySelectorAll("#itemsMobile .item-card");
+        dRows.forEach((r, i) => {
           const el = r.querySelector('[id^="rn_"]');
           if (el) el.textContent = i + 1;
         });
+        mCards.forEach((r, i) => {
+          const el = r.querySelector('[id^="mrn_"]');
+          if (el) el.textContent = i + 1;
+        });
+        const count = dRows.length;
         document.getElementById("itemCount").textContent =
-          document.querySelectorAll(".item-row").length + " items";
+          count + (count === 1 ? " item" : " items");
+      }
+
+      // global id map
+      const rowMap = {};
+
+      // Overload createDesktopRow to accept pre-assigned id
+      function createDesktopRow_withId(item, id) {
+        const div = document.createElement("div");
+        div.className = "item-row-desktop";
+        div.id = "drow_" + id;
+        div.dataset.rid = id;
+        div.innerHTML = `
+    <div class="row-num" id="rn_${id}">–</div>
+    <input type="text" placeholder="W1" value="${item.no || ""}" id="no_${id}" oninput="recalc()"/>
+    <select id="type_${id}" onchange="onTypeChange(${id})" class="type-input">${typeOpts(item.type || "")}</select>
+    <input type="number" placeholder="mm" value="${item.w || ""}" id="w_${id}" oninput="recalc()" inputmode="numeric"/>
+    <input type="number" placeholder="mm" value="${item.h || ""}" id="h_${id}" oninput="recalc()" inputmode="numeric"/>
+    <input type="number" placeholder="1"  value="${item.qty || 1}" id="qty_${id}" oninput="recalc()" inputmode="numeric"/>
+    <div class="row-area" id="area_${id}">0.00</div>
+    <input type="number" placeholder="₹" value="${item.rate || ""}" id="rate_${id}" oninput="recalc()" inputmode="numeric"/>
+    <div class="row-amount" id="amt_${id}">₹0</div>
+    <button class="remove-btn" onclick="removeRow(${id})" title="Remove">×</button>
+  `;
+        return div;
       }
 
       // ─── RECALC ──────────────────────────────────────────────────────────────────
+      function getRowIds() {
+        return Array.from(
+          document.querySelectorAll("#itemsDesktop .item-row-desktop"),
+        ).map((r) => parseInt(r.dataset.rid));
+      }
+
+      function getVal(prefix, id, fallback = 0) {
+        const el = document.getElementById(prefix + id);
+        return el ? parseFloat(el.value) || fallback : fallback;
+      }
+      function getStr(prefix, id) {
+        const el = document.getElementById(prefix + id);
+        return el ? el.value || "" : "";
+      }
+
       function recalc() {
         let subtotal = 0,
           totalQty = 0,
           totalArea = 0;
 
-        document.querySelectorAll(".item-row").forEach((row) => {
-          const id = row.id.replace("row_", "");
-          const w = parseFloat(document.getElementById("w_" + id)?.value) || 0;
-          const h = parseFloat(document.getElementById("h_" + id)?.value) || 0;
-          const qty =
-            parseFloat(document.getElementById("qty_" + id)?.value) || 0;
-          const rate =
-            parseFloat(document.getElementById("rate_" + id)?.value) || 0;
+        getRowIds().forEach((id) => {
+          const w = getVal("w_", id);
+          const h = getVal("h_", id);
+          const qty = getVal("qty_", id, 1);
+          const rate = getVal("rate_", id);
           const area = mmToSqft(w, h, qty);
           const amt = Math.round(area * rate);
+
+          // update desktop
           const areaEl = document.getElementById("area_" + id);
           const amtEl = document.getElementById("amt_" + id);
           if (areaEl) areaEl.textContent = area.toFixed(2);
           if (amtEl) amtEl.textContent = amt ? inr(amt) : "₹0";
+
+          // update mobile (sync inputs)
+          const mw = document.getElementById("mw_" + id);
+          const mh = document.getElementById("mh_" + id);
+          const mqty = document.getElementById("mqty_" + id);
+          const mrate = document.getElementById("mrate_" + id);
+          // if mobile fields exist and differ, sync from desktop
+          if (mw && document.activeElement !== mw && mw.value != w)
+            mw.value = w || "";
+          if (mh && document.activeElement !== mh && mh.value != h)
+            mh.value = h || "";
+          if (mqty && document.activeElement !== mqty && mqty.value != qty)
+            mqty.value = qty;
+          if (mrate && document.activeElement !== mrate && mrate.value != rate)
+            mrate.value = rate || "";
+
+          const mareaEl = document.getElementById("marea_" + id);
+          const mamtEl = document.getElementById("mamt_" + id);
+          if (mareaEl) mareaEl.textContent = area.toFixed(2);
+          if (mamtEl) mamtEl.textContent = amt ? inr(amt) : "₹0";
+
           subtotal += amt;
           totalQty += qty;
           totalArea += area;
@@ -813,43 +1204,57 @@
 
         const transport =
           parseFloat(document.getElementById("transport").value) || 0;
-        const inst =
+        const installation =
           parseFloat(document.getElementById("installation").value) || 0;
-        const grand = subtotal + transport + inst;
+        const grand = subtotal + transport + installation;
         const rateSqf = totalArea ? grand / totalArea : 0;
 
         document.getElementById("t_items").textContent = totalQty;
         document.getElementById("t_area").textContent = totalArea.toFixed(2);
         document.getElementById("t_sub").textContent = inr(subtotal);
-        document.getElementById("t_extra").textContent = inr(transport + inst);
+        document.getElementById("t_extra").textContent = inr(
+          transport + installation,
+        );
         document.getElementById("t_grand").textContent = inr(grand);
         document.getElementById("t_rate_sqf").textContent =
           "Rate/sqf: ₹" + rateSqf.toFixed(2);
       }
 
-      // ─── COLLECT DATA ────────────────────────────────────────────────────────────
+      // Also sync mobile → desktop when mobile fields change
+      function syncMobileToDesktop(id) {
+        const fields = ["w", "h", "qty", "rate", "no"];
+        fields.forEach((f) => {
+          const mEl = document.getElementById("m" + f + "_" + id);
+          const dEl = document.getElementById(f + "_" + id);
+          if (mEl && dEl && document.activeElement === mEl)
+            dEl.value = mEl.value;
+        });
+        const mtype = document.getElementById("mtype_" + id);
+        const dtype = document.getElementById("type_" + id);
+        if (mtype && dtype && document.activeElement === mtype)
+          dtype.value = mtype.value;
+        recalc();
+      }
+
+      // ─── COLLECT DATA ─────────────────────────────────────────────────────────────
       function collectData() {
-        const items = [];
-        document.querySelectorAll(".item-row").forEach((row) => {
-          const id = row.id.replace("row_", "");
-          const w = parseFloat(document.getElementById("w_" + id)?.value) || 0;
-          const h = parseFloat(document.getElementById("h_" + id)?.value) || 0;
-          const qty =
-            parseFloat(document.getElementById("qty_" + id)?.value) || 0;
-          const rate =
-            parseFloat(document.getElementById("rate_" + id)?.value) || 0;
+        const items = getRowIds().map((id) => {
+          const w = getVal("w_", id);
+          const h = getVal("h_", id);
+          const qty = getVal("qty_", id, 1);
+          const rate = getVal("rate_", id);
           const area = mmToSqft(w, h, qty);
           const amount = Math.round(area * rate);
-          items.push({
-            no: document.getElementById("no_" + id)?.value || "",
-            type: document.getElementById("type_" + id)?.value || "",
+          return {
+            no: getStr("no_", id),
+            type: getStr("type_", id),
             w,
             h,
             qty,
             rate,
             area: parseFloat(area.toFixed(2)),
             amount,
-          });
+          };
         });
 
         const transport =
@@ -888,13 +1293,26 @@
       }
 
       // ─── PDF GENERATION ──────────────────────────────────────────────────────────
+      function setBtnLoading(loading) {
+        const btns = [
+          document.getElementById("genBtn"),
+          document.getElementById("fabBtn"),
+        ];
+        btns.forEach((btn) => {
+          if (!btn) return;
+          btn.disabled = loading;
+          if (loading) {
+            btn.dataset.orig = btn.innerHTML;
+            btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> Generating…`;
+          } else {
+            btn.innerHTML = btn.dataset.orig || btn.innerHTML;
+          }
+        });
+      }
+
       async function generatePDF() {
-        const btn = document.getElementById("genBtn");
-        btn.disabled = true;
-        btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg> <span>Generating…</span>`;
-
-        await new Promise((r) => setTimeout(r, 60));
-
+        setBtnLoading(true);
+        await new Promise((r) => setTimeout(r, 50));
         try {
           const d = collectData();
           const { jsPDF } = window.jspdf;
@@ -909,9 +1327,9 @@
           const ML = 12,
             MR = 12,
             MT = 10;
-          const CW = PW - ML - MR;
+          const CW = PW - ML - MR; // 186mm
 
-          // ── COMPANY HEADER ──
+          // ── HEADER ──
           doc.setFontSize(16);
           doc.setFont("helvetica", "bold");
           doc.setTextColor(192, 57, 43);
@@ -922,7 +1340,6 @@
           doc.setTextColor(26, 39, 68);
           doc.text(d.companyTag, PW / 2, MT + 12, { align: "center" });
 
-          // quote meta left / right
           doc.setFontSize(8);
           doc.setFont("helvetica", "normal");
           doc.setTextColor(60, 60, 60);
@@ -933,14 +1350,12 @@
           });
           doc.text(`DATE: ${d.quoteDate}`, PW - MR, MT + 8, { align: "right" });
 
-          // red line
           let y = MT + 15;
           doc.setDrawColor(192, 57, 43);
           doc.setLineWidth(0.6);
           doc.line(ML, y, PW - MR, y);
           y += 5;
 
-          // TITLE
           doc.setFontSize(10.5);
           doc.setFont("helvetica", "bold");
           doc.setTextColor(26, 39, 68);
@@ -948,13 +1363,11 @@
             align: "center",
           });
           y += 2;
-          // underline
           const titleW = doc.getTextWidth("ESTIMATE FOR UPVC WINDOWS & DOORS");
           doc.setLineWidth(0.4);
           doc.line(PW / 2 - titleW / 2, y, PW / 2 + titleW / 2, y);
           y += 5;
 
-          // Customer banner
           doc.setFillColor(238, 242, 248);
           doc.rect(ML, y, CW, 8, "F");
           doc.setFont("helvetica", "bold");
@@ -968,7 +1381,7 @@
           });
           y += 11;
 
-          // ── ITEMS TABLE ──
+          // ── TABLE ──
           const cols = [
             { header: "S.No", dataKey: "sno" },
             { header: "Win/\nDoor No.", dataKey: "no" },
@@ -996,8 +1409,8 @@
           const totalQty = d.items.reduce((a, b) => a + b.qty, 0);
           const totalArea = d.totalArea.toFixed(2);
           const grandFmt = d.grand.toLocaleString("en-IN");
+          const nItems = d.items.length;
 
-          // Footer rows
           rows.push(
             {
               sno: "",
@@ -1045,9 +1458,6 @@
             },
           );
 
-          const nItems = d.items.length;
-          const nRows = rows.length;
-
           doc.autoTable({
             startY: y,
             columns: cols,
@@ -1077,19 +1487,16 @@
             alternateRowStyles: { fillColor: [247, 244, 238] },
             didParseCell(data) {
               const r = data.row.index;
-              // total row
               if (r === nItems) {
                 data.cell.styles.fontStyle = "bold";
                 data.cell.styles.fillColor = [230, 236, 248];
                 data.cell.styles.textColor = [26, 39, 68];
               }
-              // transport/installation rows
               if (r === nItems + 1 || r === nItems + 2) {
                 data.cell.styles.fontSize = 7.5;
                 if (data.column.dataKey === "area")
                   data.cell.styles.halign = "right";
               }
-              // grand total row
               if (r === nItems + 3) {
                 data.cell.styles.fontStyle = "bold";
                 data.cell.styles.fillColor = [26, 39, 68];
@@ -1104,7 +1511,6 @@
 
           y = doc.lastAutoTable.finalY + 4;
 
-          // GST note
           doc.setFontSize(8);
           doc.setFont("helvetica", "italic");
           doc.setTextColor(192, 57, 43);
@@ -1116,13 +1522,11 @@
           );
           y += 6;
 
-          // Divider
           doc.setDrawColor(180, 180, 180);
           doc.setLineWidth(0.3);
           doc.line(ML, y, PW - MR, y);
           y += 5;
 
-          // ── TERMS ──
           doc.setFont("helvetica", "bold");
           doc.setFontSize(9);
           doc.setTextColor(26, 39, 68);
@@ -1141,7 +1545,7 @@
             ["Taxes", "AS APPLICABLE (INCLUDED)"],
             [
               "Validity",
-              `Rates valid for ${d.validity} days from the date of this quotation.`,
+              `Rates valid for ${d.validity} days from date of quotation.`,
             ],
             ["Note", d.custNote],
           ];
@@ -1149,7 +1553,6 @@
           doc.setFont("helvetica", "normal");
           doc.setFontSize(7.8);
           doc.setTextColor(50, 50, 50);
-
           const labelW = 26;
           terms.forEach(([k, v]) => {
             if (y > PH - 20) {
@@ -1169,8 +1572,6 @@
             doc.addPage();
             y = 15;
           }
-
-          // Signature
           doc.setFont("helvetica", "bold");
           doc.setFontSize(8.5);
           doc.setTextColor(26, 39, 68);
@@ -1181,7 +1582,6 @@
           doc.setTextColor(100, 100, 100);
           doc.text("Authorised Signatory", PW - MR, y, { align: "right" });
 
-          // ── SAVE ──
           const filename = `Quote_${d.quoteNo || "UPVC"}_${d.customerName.replace(/[^a-zA-Z0-9]/g, "_")}.pdf`;
           doc.save(filename);
 
@@ -1193,15 +1593,56 @@
           console.error(err);
           alert("Error generating PDF: " + err.message);
         } finally {
-          btn.disabled = false;
-          btn.innerHTML = `<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg><span>Download PDF Quote</span>`;
+          setBtnLoading(false);
         }
       }
 
-      // ─── INIT ────────────────────────────────────────────────────────────────────
+      // ─── INIT ─────────────────────────────────────────────────────────────────────
       (function init() {
-        const container = document.getElementById("itemsContainer");
-        DEFAULT.forEach((item) => container.appendChild(createRow(item)));
+        DEFAULT.forEach((item) => {
+          const id = rowId++;
+          const dRow = createDesktopRow_withId(item, id);
+          const mCard = createMobileCard(item, id);
+          document.getElementById("itemsDesktop").appendChild(dRow);
+          document.getElementById("itemsMobile").appendChild(mCard);
+        });
+
+        // wire mobile inputs to sync→desktop on input
+        document
+          .getElementById("itemsMobile")
+          .addEventListener("input", (e) => {
+            const card = e.target.closest(".item-card");
+            if (!card) return;
+            const id = parseInt(card.dataset.rid);
+            // map mobile field id to desktop
+            const fmap = {
+              mw: "w_",
+              mh: "h_",
+              mqty: "qty_",
+              mrate: "rate_",
+              mno: "no_",
+            };
+            for (const [mpfx, dpfx] of Object.entries(fmap)) {
+              if (e.target.id === mpfx + "_" + id) {
+                const dEl = document.getElementById(dpfx + id);
+                if (dEl) dEl.value = e.target.value;
+              }
+            }
+            recalc();
+          });
+
+        document
+          .getElementById("itemsMobile")
+          .addEventListener("change", (e) => {
+            const card = e.target.closest(".item-card");
+            if (!card) return;
+            const id = parseInt(card.dataset.rid);
+            if (e.target.id === "mtype_" + id) {
+              const dEl = document.getElementById("type_" + id);
+              if (dEl) dEl.value = e.target.value;
+            }
+          });
+
         document.getElementById("quoteDate").value = new Date()
           .toISOString()
           .slice(0, 10);
